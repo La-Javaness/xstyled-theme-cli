@@ -1,0 +1,9 @@
+{
+	"repositoryName": "xstyled-theme-cli",
+	"frontOrBack": "Back-end",
+	"appType": "Library without framework",
+	"isLibrary": true,
+	"withReact": false,
+	"withStyledComponents": false,
+	"withTypescript": false
+}
