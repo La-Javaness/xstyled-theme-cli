@@ -1,6 +1,6 @@
 {
 	"name": "xstyled-theme-cli",
-	"version": "1.0.0",
+	"version": "0.2.0",
 	"description": "A CLI that builds Xstyled themes from assets, and helpers to use them in your project",
 	"homepage": "/",
 	"license": "MIT",
@@ -26,6 +26,7 @@
 		"dotenv": "^8.2.0",
 		"fontface-styled-components": "^0.2.3",
 		"inquirer": "^7.0.0",
+		"js-levenshtein": "^1.1.6",
 		"lodash": "^4.17.15",
 		"minimist": "^1.2.0",
 		"rimraf": "^3.0.0",

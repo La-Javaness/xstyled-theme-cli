@@ -1,6 +1,10 @@
+const chalk = require('chalk')
+
 const { log } = require('../logger')
-const { name, version } = require('../../package.json')
+const cliName = require('../utils/cliName')
+
+const { version } = require('../../package.json')
 
 module.exports = () => {
-	log('', `${name}, version ${version}\n`)
+	log('', chalk`{bold {cyanBright ${cliName}} {blueBright.bgBlack ${version}}}\n`)
 }

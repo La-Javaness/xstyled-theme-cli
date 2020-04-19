@@ -5,28 +5,38 @@ let _insideStep = false
 const pad = (messageLen, targetLen, char = ' ') => new Array(Math.max(0, targetLen - messageLen)).join(char)
 
 /**
- * Prints a message with decoration.
- * @param  {String} mode    How to decorate the message (supported values: 'bold', 'dim', 'success')
+ * Formats a message with chalk, using preset decoration modes.
+ * @param  {String} mode    Decoration mode (one of 'header', 'section'. 'bold', 'dim', 'warning', 'success')
+ * @param  {String} message The message to print.
+ * @return {String} the same message, decorated accordingly
+ */
+const chalkFormat = (mode, message) => {
+	switch (mode) {
+		case 'header':
+			return chalk.bgWhiteBright.blackBright(`\n -  ${message}${pad(message.length + 8, 72)}  - \n`)
+		case 'section':
+			return chalk.bold.inverse(message)
+		case 'bold':
+			return chalk.bold(message)
+		case 'dim':
+			return chalk.dim(message)
+		case 'warning':
+			return chalk.bgYellowBright.black(message)
+		case 'success':
+			return chalk.bgGreenBright.black(message)
+		default:
+			return message
+	}
+}
+
+/**
+ * Prints a message with decoration using `chalkFormat`
+ * @param  {String} mode    Decoration mode (one of 'header', 'section'. 'bold', 'dim', 'warning', 'success')
  * @param  {String} message The message to print.
  * @return {void}
  */
 const log = (mode, message) => {
-	switch (mode) {
-		case 'header':
-			return process.stdout.write(
-				chalk.bgWhiteBright.blackBright(`\n -  ${message}${pad(message.length + 8, 72)}  - \n`)
-			)
-		case 'bold':
-			return process.stdout.write(chalk.bold(message))
-		case 'dim':
-			return process.stdout.write(chalk.dim(message))
-		case 'warning':
-			return process.stdout.write(chalk.bgYellowBright.black(message))
-		case 'success':
-			return process.stdout.write(chalk.bgGreenBright.black(message))
-		default:
-			return process.stdout.write(message)
-	}
+	process.stdout.write(chalkFormat(mode, message))
 }
 
 /**
@@ -74,6 +84,7 @@ const error = (message, exitCode = 1) => {
 }
 
 module.exports = {
+	chalkFormat,
 	log,
 	end,
 	error,
