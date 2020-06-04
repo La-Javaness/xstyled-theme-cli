@@ -48,6 +48,9 @@ const fontFamilySchema = Joi.string()
 /** Schema for a letter-spacing CSS property, allowing for arbitrary strings to support theme props */
 const letterSpacingSchema = Joi.string()
 
+/** Schema for the name of a variant in a component. */
+const variantNameSchema = Joi.string().regex(themeNamePattern)
+
 /**
  * Validation schema for the JSON representation of a `colors.yml` file's content.
  * Three sections exist: colors, backgrounds and foregrounds. The former two match
@@ -59,6 +62,11 @@ const colorFileSchema = Joi.object().keys({
 	foregrounds: Joi.object().pattern(themeNamePattern, foregroundColorSchema),
 })
 
+/**
+ * Validation schema for the JSON representation of a `typography.yml` file's content.
+ * Defines possible values for font-related CSS properties, and a textStyles section
+ * that maps text style names to specific values of the font-related properties.
+ */
 const typographyFileSchema = Joi.object().keys({
 	fontSizes: Joi.object().pattern(themeNamePattern, fontSizeSchema),
 	fontWeights: Joi.object().pattern(themeNamePattern, fontWeightSchema),
@@ -78,6 +86,25 @@ const typographyFileSchema = Joi.object().keys({
 	),
 })
 
+/**
+ * Validation schema for the JSON representation of a component file.
+ * Defines variants for the component, as well as CSS instructions to apply for
+ * each variant.
+ */
+const componentFileSchema = Joi.object().keys({
+	core: Joi.object(), // TODO FIXME improve
+	variants: Joi.object()
+		.keys({
+			default: variantNameSchema,
+		})
+		.pattern(themeNamePattern, Joi.object()),
+	sizes: Joi.object() // TODO FIXME generalise to *s
+		.keys({
+			default: variantNameSchema,
+		})
+		.pattern(themeNamePattern, Joi.object()),
+})
+
 module.exports = {
 	themeNamePattern,
 	colorSchema,
@@ -91,4 +118,5 @@ module.exports = {
 	letterSpacingSchema,
 	colorFileSchema,
 	typographyFileSchema,
+	componentFileSchema,
 }

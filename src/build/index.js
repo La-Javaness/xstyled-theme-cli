@@ -20,6 +20,9 @@ module.exports = async (dirs) => {
 	await buildConstants(dirs)
 	await buildTypography(dirs)
 
+	log('header', 'Loading components')
+	await buildComponents(dirs)
+
 	log('header', 'Writing TypeScript enums and Xstyled themes')
 	await exportColorTypescript(dirs)
 	await createThemeJS(dirs)
