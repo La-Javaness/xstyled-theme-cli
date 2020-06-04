@@ -98,7 +98,7 @@ const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
 			const jsx = `return React.createElement('svg', {'aria-hidden': true, width: '${w}', height: '${h}', viewBox: '${size}', dangerouslySetInnerHTML: {__html: \`${inlineSvg}\`}})`
 
 			fs.writeFileSync(
-				path.join(componentDestDir, `${name}.js`),
+				path.join(componentDestDir, `${titleCase}.js`),
 				`import React from 'react'\n\nconst ${titleCase} = ({color}) => {\n\t${jsx}\n}\n\nexport default ${titleCase}\n`
 			)
 		}
@@ -116,7 +116,7 @@ const buildIcons = async function (dirs) {
 	const { themeIconsPath, themeOutputPath } = dirs
 
 	const destDir = path.join(themeOutputPath, 'icons')
-	const componentDestDir = path.join(destDir, 'components')
+	const componentDestDir = path.join(themeOutputPath, 'components', 'icons')
 
 	step.start('Generating SVG Sprites')
 	const inputFiles = await readDir(themeIconsPath)

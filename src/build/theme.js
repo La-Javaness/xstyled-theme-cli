@@ -56,7 +56,7 @@ const createThemeJS = async (dirs) => {
 	injectForegroundColors(themeJS, 'default')
 	step.end()
 
-	makeThemeFile(dirs, 'theme.js', themeJS)
+	makeThemeFile(dirs, 'index.js', themeJS)
 
 	Object.keys(global.ljnTheme.colors.backgrounds).forEach((background) => {
 		const bgThemeJS = { colors: {} }

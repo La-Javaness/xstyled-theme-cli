@@ -1,17 +1,18 @@
 const { log } = require('../logger')
 
+const { buildComponents } = require('./components')
 const { buildColors, exportColorTypescript } = require('./color')
 const { buildConstants } = require('./constants')
-const { buildIcons } = require('./icons')
 const { buildFonts } = require('./fonts')
+const { buildIcons } = require('./icons')
 const { createThemeJS, createOnBackground } = require('./theme')
+const { transpileTS } = require('./typescript')
 const { buildTypography } = require('./typography')
 
 module.exports = async (dirs) => {
 	global.ljnTheme = {}
 
 	log('header', 'Loading and parsing theme source')
-
 	// DO NOT EDIT THIS ORDER.
 	await buildColors(dirs)
 	await buildIcons(dirs)
