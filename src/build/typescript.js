@@ -2,8 +2,10 @@ const fs = require('fs')
 const { snakeCase } = require('lodash')
 const mkdirp = require('mkdirp')
 const path = require('path')
+const ts = require('typescript')
 
-const { step } = require('../logger')
+const { error, step } = require('../logger')
+const readDir = require('../utils/readDir')
 
 const generateEnumPrivate = ({ themeOutputPath }, filename, enumName, filler, enumDefault = null) => {
 	step.start(`Generating TypeScript enum '${enumName}'`)
@@ -50,7 +52,56 @@ const generateEnumFromObject = (dirs, filename, enumName, object, enumDefault = 
 	)
 }
 
+const transpileTS = async (dirs) => {
+	const { themeOutputPath } = dirs
+
+	step.start('Transpiling TypeScript enums')
+	const enumsPath = path.join(themeOutputPath, 'enums')
+	const inputFiles = (await readDir(enumsPath))
+		.filter((file) => !file.endsWith('.d.ts') && file.endsWith('.ts'))
+		.map((tsFilename) => path.join(enumsPath, tsFilename))
+	const trashFolder = path.join(themeOutputPath, 'DELETE')
+
+	const options = {
+		/* Here the compiler options */
+		allowSyntheticDefaultImports: true,
+		declaration: true,
+		declarationDir: path.join(themeOutputPath, 'declarations'),
+		outDir: trashFolder,
+		esModuleInterop: true,
+		moduleResolution: 'node',
+		sourceMap: true,
+		jsx: 'react',
+		target: 'ES5',
+	}
+
+	const program = ts.createProgram(inputFiles, options)
+	const emitResult = program.emit()
+	const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics)
+
+	// We can't get tsc not to emit js files, but we only want declarations and TS sources
+	await fs.promises.rmdir(trashFolder, { recursive: true })
+
+	allDiagnostics.forEach((diagnostic) => {
+		if (diagnostic.file) {
+			const { line, character } = diagnostic.file.getLineAndCharacterOfPosition(diagnostic.start)
+			const message = ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n')
+			error(`${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`, false)
+		} else {
+			error(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'), false)
+		}
+	})
+
+	const exitCode = emitResult.emitSkipped ? 1 : 0
+	if (exitCode) {
+		error('Some TypeScript errors were found, please file a bug against xstyled-theme.')
+	}
+
+	step.end()
+}
+
 module.exports = {
 	generateEnumFromArray,
 	generateEnumFromObject,
+	transpileTS,
 }
