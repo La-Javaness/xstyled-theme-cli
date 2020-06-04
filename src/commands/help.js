@@ -46,7 +46,7 @@ ${chalkFormat('section', 'Other Commands:')}
 	build: `TODO\n`,
 	current: `TODO explain\n`,
 	list: `TODO\n`,
-	init: `TODO\n`,
+	init: `TODO. Args: Name, Author, License, Repository, Description, Version, Preset\n`,
 	remove: `TODO\n`,
 	search: `TODO add --registry flag\n`,
 	version: `TODO add --json format\n`,

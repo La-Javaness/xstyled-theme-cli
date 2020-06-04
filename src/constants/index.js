@@ -1,4 +1,4 @@
-const COMMANDS = ['build', 'help', 'version'] // FIXME
+const COMMANDS = ['build', 'help', 'init', 'version'] // FIXME
 
 const CSS_COLOR_NAMES = [
 	'aliceblue',
@@ -152,7 +152,19 @@ const CSS_COLOR_NAMES = [
 	'yellowgreen',
 ]
 
+const LICENSES = [
+	'Apache-2.0',
+	'BSD-3-Clause',
+	'CECILL-2.1',
+	'CECILL-B',
+	'CECILL-C',
+	'GPL-3.0-or-later',
+	'LGPL-3.0-or-later',
+	'MIT',
+]
+
 module.exports = {
 	COMMANDS,
 	CSS_COLOR_NAMES,
+	LICENSES,
 }
