@@ -11,9 +11,9 @@ const { resolveColor } = require('./color')
 const makeThemeFile = ({ themeOutputPath }, filename, themeJS, logSuffix = '') => {
 	step.start(`Generating xstyled theme file '${filename}'${logSuffix}`)
 
-	const fileContents = `export const theme = ${util.inspect(themeJS)}
+	const fileContents = `const theme = ${JSON.stringify(themeJS, null, '\t')}
 
-export default theme
+module.exports = theme
 `
 
 	const themeDir = path.resolve(themeOutputPath, 'theme')
