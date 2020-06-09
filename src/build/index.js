@@ -6,7 +6,7 @@ const { buildConstants } = require('./constants')
 const { buildFonts } = require('./fonts')
 const { buildIcons } = require('./icons')
 const { createThemeJS, createOnBackground } = require('./theme')
-const { transpileTS } = require('./typescript')
+// const { transpileTS } = require('./typescript')
 const { buildTypography } = require('./typography')
 
 module.exports = async (dirs) => {
@@ -28,8 +28,10 @@ module.exports = async (dirs) => {
 	await createThemeJS(dirs)
 	await createOnBackground(dirs)
 
-	log('header', 'Transpiling TypeScript to JavaScript')
-	await transpileTS(dirs)
+	// FIXME: disabled because we end up having .ts/.js files with the same name,
+	// causing confusion to loaders in libraries using our themes. TS only for now.
+	// log('header', 'Transpiling TypeScript to JavaScript')
+	// await transpileTS(dirs)
 
 	log('success', '\nDone!\n')
 
