@@ -13,6 +13,7 @@ const writeFile = require('../utils/writeFile')
 const cliManifest = require('../../package.json')
 
 const buildAssets = require('./assets')
+const buildComponentDir = require('./components')
 const buildYmlSources = require('./ymlSources')
 
 const askPackageInfo = async (dirs, args) => {
@@ -118,6 +119,7 @@ module.exports = async (dirs, args) => {
 	log('header', 'Creating theme source files')
 	await buildAssets(dirs, opts)
 	await buildYmlSources(dirs, opts)
+	await buildComponentDir(dirs, opts)
 
 	// TODO add scripts to package.json
 	// TODO add NPM registry and check package name

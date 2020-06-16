@@ -1,0 +1,37 @@
+# The core section lets you set values for the theme API of a component. Read the
+# component's documentation to find out what theme API variables are available
+# for customisation. All variables in the core section are optional
+core:
+  border: true
+  borderRadius: md    # You can use theme values, eg. this maps to constants.radii
+  borderWidth: xs     # constants.sizes
+  borderColor: accent # colors
+  padding: x2         # constants.spaces
+  textColor: primary  # colors
+  textSize: md        # constants.sizes
+
+# The variants section lets you create style variants of your component. Not all
+# components accept variants, so consult the documentation of the component. All
+# theme variables can be customised in a variant, and you can set the default
+# variant to use. In the JS code, the variant of a component can be set using the
+# 'variant' prop.
+variants:
+  default: primary
+  primary:
+    borderColor: accent
+    textColor: primary
+  reverse:
+    borderColor: primary
+    textColor: accent
+
+# Some components allow variants on other props. For instance, if the prop 'size'
+# allows variants, you may define a 'sizes' section. The same rules apply as for
+# the variants section.
+sizes:
+  default: md
+  sm:
+    textSize: sm
+  md:
+    textSize: md
+  lg:
+    textSize: xl
