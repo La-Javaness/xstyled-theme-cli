@@ -1,0 +1,39 @@
+# Collection of breakpoints. You can define as many as you want. The active breakpoint
+# is the one directly big enough to contain the current width of the viewport. If all
+# breakpoints are smaller than the viewport, the active breakpoint is the largest one.
+# Sizes are in pixels, without the unit. Mandatory.
+breakpoints:
+  small: 480
+  medium: 768
+  larger: 1200
+
+# Spaces as defined by @xstyled. Can be a dictionary or an array (in which case
+# you can use 0, 1, 2, 3, etc. as keys). Units are pixels. Mandatory.
+spaces:
+  x1: 4
+  x2: 8
+  x4: 16
+  x6: 24
+  x8: 32
+
+# Sizes as defined by @xstyled. Can be a dictionary or an array (in which case
+# you can use 0, 1, 2, 3, etc. as keys). Units are pixels. Mandatory.
+sizes:
+  xs: 16
+  sm: 32
+  md: 64
+  lg: 128
+  xl: 256
+
+# Border-radius properties. Units are pixels. Optional.
+radii:
+  xs: 0
+  sm: 1
+  md: 2
+  lg: 4
+  xl: 8
+
+# Opacities. Units are between 0 and 1, like the CSS opacity property. Optional.
+opacities:
+  primary: 1
+  secondary: 0.5

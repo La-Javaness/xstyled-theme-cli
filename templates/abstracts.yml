@@ -1,0 +1,18 @@
+# In this file, you can define abstract theme references that you want to access
+# in your CSS or code. If you're making a theme for a particular app, you may be
+# requested by the app authors to include some abstract structures here. If not,
+# you can safely ignore this section. Note that abstract structures can be
+# referenced in the JS code, but not in other YML sections in the theme.
+
+# Below is an example of abstract structure. If an app developer asks theme
+# authors to include border styles for the names 'primary' and 'thick', the
+# structure below would fulfill that requirement and ensure the app is themed.
+# borders:
+#   primary:
+#     borderWidth: 1
+#     borderColor: sampleColor
+#     borderStyle: solid
+#   thick:
+#     borderWidth: sm
+#     borderColor: sampleColor
+#     borderStyle: dashed

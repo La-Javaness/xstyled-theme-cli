@@ -1,5 +1,4 @@
 const inquirer = require('inquirer')
-const mkdirp = require('mkdirp')
 const parseGitConfig = require('parse-git-config')
 const path = require('path')
 const sortPackageJson = require('sort-package-json')
@@ -13,11 +12,8 @@ const writeFile = require('../utils/writeFile')
 
 const cliManifest = require('../../package.json')
 
-// askThemeName
-// askDescription
-// askAuthor
-// askLicense
-// askRepositoryUrl
+const buildAssets = require('./assets')
+const buildYmlSources = require('./ymlSources')
 
 const askPackageInfo = async (dirs, args) => {
 	const { rootPath } = dirs
@@ -87,8 +83,11 @@ const askPackageInfo = async (dirs, args) => {
 }
 
 module.exports = async (dirs, args) => {
-	const { rootPath, themeFontsPath, themeIconsPath, themeImagesPath, themeSrcPath } = dirs
-	const opts = {}
+	const { rootPath } = dirs
+	const opts = {
+		private: args.private || args.p || false,
+		version: args.version || args.v || '1.0.0',
+	}
 
 	log('header', 'Initialising a new xstyled-theme project')
 
@@ -101,8 +100,8 @@ module.exports = async (dirs, args) => {
 
 	const manifest = Object.assign(
 		{
-			version: args.version || args.v || '1.0.0',
-			private: args.private || args.p || false,
+			version: opts.version,
+			private: opts.private,
 			files: ['dist'],
 			scripts: {
 				build: `${cliName} build`,
@@ -117,14 +116,11 @@ module.exports = async (dirs, args) => {
 	await writeFile(`${JSON.stringify(sortPackageJson(manifest), null, '\t')}\n`, path.join(rootPath, 'package.json'))
 
 	log('header', 'Creating theme source files')
-	mkdirp.sync(themeFontsPath)
-	mkdirp.sync(themeIconsPath)
-	mkdirp.sync(themeImagesPath)
-	mkdirp.sync(themeSrcPath)
+	await buildAssets(dirs, opts)
+	await buildYmlSources(dirs, opts)
+
 	// TODO add scripts to package.json
 	// TODO add NPM registry and check package name
-	// TODO add source files and folders, and gitkeeps
-	// TODO add examples
 
 	log('success', '\nDone!\n')
 }

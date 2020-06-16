@@ -1,0 +1,32 @@
+colors:
+  blanc: '#fff'
+  bleuljn: '#0046ed'
+  bleufonce: '#003ae1'
+  roseljn: '#f4324d'
+  grisclair: '#b3b3b3'
+  grismoyen: '#767676'
+  grisfonce: '#343434'
+  noir: '#232323'
+
+backgrounds:
+  white: blanc
+  dark: noir
+  primary: bleuljn
+  secondary: '#f4f4f4'
+  site: '#f8f8f8'
+
+foregrounds:
+  primary:
+    default: bleuljn
+    on-dark: roseljn
+    on-primary: blanc
+
+  lightAccent:
+    default: grisclair
+    on-white: grisclair
+    on-dark: grisfonce
+    on-primary: bleufonce
+    on-secondary: grismoyen
+    on-site: grismoyen
+
+  error: roseljn

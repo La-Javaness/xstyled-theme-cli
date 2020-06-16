@@ -1,0 +1,40 @@
+# Collection of CSS font-size properties in px, eg: xs: 10. Optional.
+fontSizes:
+  sampleFontSize: 10
+
+# Collection of CSS font-family properties. Optional.
+fonts:
+  sansFonts: "'Open Sans', sans-serif"
+
+# Collection of CSS font-weight properties. Optional.
+fontWeights:
+  sampleFontWeight: 400
+
+# Collection of CSS letter-spacing properties. Optional.
+letterSpacings:
+  foo: normal
+
+# Collection of CSS line-height properties. Optional.
+lineHeights:
+  foo: 1.2
+
+# Each named style can define font properties, and use either direct CSS
+# values or values taken from the theme. Properties include the typography
+# properties above, and the color property. All properties are optional, but
+# each text style needs at least one property.
+textStyles:
+  sampleFromTheme:
+    fontSize: sampleFontSize
+    fontFamily: sansFonts
+    fontWeight: sampleFontWeight
+    color: sampleColor
+    letterSpacing: foo
+    lineHeight: foo
+
+  sampleFromCss:
+    fontSize: 14
+    fontFamily: sans-serif
+    fontWeight: 500
+    color: #333333
+    letterSpacings: -1px
+    lineHeights: 1.5
