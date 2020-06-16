@@ -87,6 +87,7 @@ module.exports = async (dirs, args) => {
 	const { rootPath } = dirs
 	const opts = {
 		private: args.private || args.p || false,
+		registry: args.registry || args.r || null,
 		version: args.version || args.v || '1.0.0',
 	}
 
@@ -110,19 +111,19 @@ module.exports = async (dirs, args) => {
 			devDependencies: {
 				[cliManifest.name]: `^${cliManifest.version}`,
 			},
-			// TODO add @xstyled-theme/utils as a peer dependency, same version
+			peerDependencies: {
+				'@xstyled-theme/utils': `^${cliManifest.version}`,
+			},
 		},
 		await askPackageInfo(dirs, args)
 	)
+
 	await writeFile(`${JSON.stringify(sortPackageJson(manifest), null, '\t')}\n`, path.join(rootPath, 'package.json'))
 
 	log('header', 'Creating theme source files')
 	await buildAssets(dirs, opts)
 	await buildYmlSources(dirs, opts)
 	await buildComponentDir(dirs, opts)
-
-	// TODO add scripts to package.json
-	// TODO add NPM registry and check package name
 
 	log('success', '\nDone!\n')
 }
