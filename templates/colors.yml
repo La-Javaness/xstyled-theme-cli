@@ -1,32 +1,24 @@
+# 
 colors:
-  blanc: '#fff'
-  bleuljn: '#0046ed'
-  bleufonce: '#003ae1'
-  roseljn: '#f4324d'
-  grisclair: '#b3b3b3'
-  grismoyen: '#767676'
-  grisfonce: '#343434'
-  noir: '#232323'
+  white: '#fff'
+  weirdLime: '#daec00'
+  sampleColor: '#44dd33'
+  otherSample: '#44dd99'
 
+#
 backgrounds:
-  white: blanc
-  dark: noir
-  primary: bleuljn
-  secondary: '#f4f4f4'
-  site: '#f8f8f8'
+  light: white              # You can reuse theme colors here
+  dark: '#333'              # You can hardcode colors too
 
+#
 foregrounds:
-  primary:
-    default: bleuljn
-    on-dark: roseljn
-    on-primary: blanc
+  primary:                  # 'primary' can now be used anywhere in the theme as a color
+    default: sampleColor    # Applied to all unspecified background colors
+    on-dark: weirdLime      # Applied when on a 'dark' background
 
-  lightAccent:
-    default: grisclair
-    on-white: grisclair
-    on-dark: grisfonce
-    on-primary: bleufonce
-    on-secondary: grismoyen
-    on-site: grismoyen
+  accent:
+    default: otherSample
+    on-light: otherSample
+    on-dark: white
 
-  error: roseljn
+  error: '#dd0060'          # A foreground color can be made constant with this shorthand
