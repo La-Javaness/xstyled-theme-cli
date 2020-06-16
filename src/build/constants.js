@@ -1,6 +1,7 @@
 const path = require('path')
 
 const { step } = require('../logger')
+const capitalise = require('../utils/capitalise')
 const loadYamlFile = require('../utils/loadYamlFile')
 
 const { generateEnumFromArray } = require('./typescript')
@@ -29,7 +30,9 @@ const buildConstants = async (dirs) => {
 	global.ljnTheme = { ...global.ljnTheme, ...abstracts }
 	step.end()
 
-	generateEnumFromArray(dirs, 'borders.ts', 'Borders', Object.keys(abstracts.borders))
+	for (const key in abstracts) {
+		generateEnumFromArray(dirs, `${key}.ts`, capitalise(key), Object.keys(abstracts[key]))
+	}
 }
 
 module.exports = {
