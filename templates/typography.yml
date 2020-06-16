@@ -35,6 +35,6 @@ textStyles:
     fontSize: 14
     fontFamily: sans-serif
     fontWeight: 500
-    color: #333333
-    letterSpacings: -1px
-    lineHeights: 1.5
+    color: '#333333'
+    letterSpacing: -1px
+    lineHeight: 1.5
