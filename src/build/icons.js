@@ -125,8 +125,11 @@ const buildIcons = async function (dirs) {
 
 	step.start('Generating React components out of the optimised SVG icons')
 	const optimisedInputDir = path.join(destDir, 'svgo')
-	const optimisedSvgs = await readDir(optimisedInputDir)
-	await genSvgComponents(optimisedSvgs, optimisedInputDir, componentDestDir)
+	// NOTE: Won't exist if there were no icons
+	if (fs.existsSync(optimisedInputDir)) {
+		const optimisedSvgs = await readDir(optimisedInputDir)
+		await genSvgComponents(optimisedSvgs, optimisedInputDir, componentDestDir)
+	}
 	step.end()
 
 	step.start('Adding icons to theme')

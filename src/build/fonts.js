@@ -16,6 +16,7 @@ const buildFonts = async ({ publicFontsPath, themeFontsPath, themeOutputPath }) 
 		fontsPublicDir: publicFontsPath,
 		fontOutputDir: path.join(themeOutputPath, 'fonts'),
 		styledOutputDir: path.join(themeOutputPath, 'components', 'fonts'),
+		allowEmpty: true,
 		forceRefresh: process.env.NODE_ENV === 'production',
 		quiet: !process.env.XSTYLED_THEME_DEBUG,
 	})

@@ -4200,10 +4200,10 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-fontface-styled-components@^0.3.0:
-  version "0.3.0"
-  resolved "https://npm.lajavaness.com:443/fontface-styled-components/-/fontface-styled-components-0.3.0.tgz#072d223d9d93b66ad42d39b8c9cf968bed4f6179"
-  integrity sha512-ln3qS2G9J7FDmZXAfszFZgN2rh/rli4OqUQk6Uj9fRZmJV5cbR0TSZlrZ4gF90ZAcJM0AGqxRbDPlES0RW+X0g==
+fontface-styled-components@^1.0.0:
+  version "1.0.0"
+  resolved "https://npm.lajavaness.com:443/fontface-styled-components/-/fontface-styled-components-1.0.0.tgz#ac057ddf604113da745b23ac8056ffe3f0e4f837"
+  integrity sha512-Km6vHpOPJDW/Ny7vDBxtRKVabxd7T03xt1fFfd2HtVfGKkNmaOjPsIU5PcE77tFYZh8QGdPA9TsdyOtq8Y+AKw==
   dependencies:
     chalk "^4.0.0"
     mkdirp "^1.0.3"

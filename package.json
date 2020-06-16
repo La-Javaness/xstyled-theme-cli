@@ -24,7 +24,7 @@
 		"@hapi/joi": "^17.1.1",
 		"chalk": "^4.0.0",
 		"dotenv": "^8.2.0",
-		"fontface-styled-components": "^0.3.0",
+		"fontface-styled-components": "^1.0.0",
 		"git-config-path": "^2.0.0",
 		"inquirer": "^7.0.0",
 		"js-levenshtein": "^1.1.6",
