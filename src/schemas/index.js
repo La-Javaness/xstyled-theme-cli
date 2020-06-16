@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const Joi = require('@hapi/joi')
 
 /** The naming pattern for Xstyle theme names. */
@@ -63,6 +64,29 @@ const colorFileSchema = Joi.object().keys({
 })
 
 /**
+ * Builds a validation schema that always fails, and prints an error message
+ * inviting the user to use another key instead. Convenient for when you
+ * deprecated a key in an API or when users often make the same typo.
+ * @param  {String} alt The correct spelling for the erroneous key that uses
+ * this validation schema.
+ * @return {Object} A Joi validation schema, expected to be used only on an
+ * object key.
+ */
+const altPropertyName = (alt) =>
+	Joi.any()
+		.forbidden()
+		.error((errors) => {
+			const badKey = errors[0].path.pop()
+			const badPath = `${errors[0].path.join('.')}.${chalk.bgWhiteBright.red(badKey)}`
+			const goodPath = `${errors[0].path.join('.')}.${chalk.bgWhiteBright.blue(alt)}`
+
+			const customErr = new Error(`"${badPath}" should be typed "${goodPath}" instead`)
+			customErr.name = ''
+
+			return customErr
+		})
+
+/**
  * Validation schema for the JSON representation of a `typography.yml` file's content.
  * Defines possible values for font-related CSS properties, and a textStyles section
  * that maps text style names to specific values of the font-related properties.
@@ -76,12 +100,19 @@ const typographyFileSchema = Joi.object().keys({
 	textStyles: Joi.object().pattern(
 		themeNamePattern,
 		Joi.object({
+			// Singular property names are allowed
 			fontSize: fontSizeSchema,
 			fontWeight: fontWeightSchema,
 			fontFamily: fontFamilySchema,
 			letterSpacing: letterSpacingSchema,
 			lineHeight: lineHeightSchema,
 			color: foregroundColorSchema,
+			// Plurals refer to the theme properties and NOT to text style properties
+			fontSizes: altPropertyName('fontSize'),
+			fontWeights: altPropertyName('fontWeight'),
+			fonts: altPropertyName('font'),
+			letterSpacings: altPropertyName('letterSpacing'),
+			lineHeights: altPropertyName('lineHeight'),
 		})
 	),
 })
