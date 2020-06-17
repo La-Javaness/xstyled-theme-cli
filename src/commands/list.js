@@ -1,9 +1,13 @@
-const { log, error } = require('../logger')
+const list = require('../list')
+const { error } = require('../logger')
+const resolveDirectories = require('../utils/resolveDirectories')
 
 module.exports = async (args) => {
 	try {
-		log('debug', 'LIST DOWNLOADED THEMES - NOT YET IMPLEMENTED')
+		const dirs = resolveDirectories(args)
+		await list(dirs, args)
 	} catch (err) {
-		error(err)
+		error(err, false)
+		throw err
 	}
 }

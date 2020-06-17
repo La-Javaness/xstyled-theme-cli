@@ -45,7 +45,7 @@ ${chalkFormat('section', 'Other Commands:')}
 	add: `TODO add --registry flag\n`,
 	build: `TODO\n`,
 	current: `TODO explain\n`,
-	list: `TODO\n`,
+	list: `TODO. Args: machine readable\n`,
 	init: `TODO. Args: Name, Author, License, Repository, Description, Version, Preset\n`,
 	remove: `TODO\n`,
 	search: `TODO add --registry flag\n`,

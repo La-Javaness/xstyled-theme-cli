@@ -114,6 +114,9 @@ module.exports = async (dirs, args) => {
 			peerDependencies: {
 				'@xstyled-theme/utils': `^${cliManifest.version}`,
 			},
+			xstyledTheme: {
+				theme: true,
+			},
 		},
 		await askPackageInfo(dirs, args)
 	)

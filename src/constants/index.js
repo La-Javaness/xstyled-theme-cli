@@ -1,4 +1,4 @@
-const COMMANDS = ['build', 'help', 'init', 'version'] // FIXME
+const COMMANDS = ['build', 'help', 'init', 'list', 'version'] // FIXME
 
 const CSS_COLOR_NAMES = [
 	'aliceblue',
