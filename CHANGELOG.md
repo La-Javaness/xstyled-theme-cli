@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.0.0...v1.1.0) (2020-07-03)
+
+
+### Features
+
+* Rename @xstyled-theme/utils to @xstyled-theme/internals ([549009c](https://github.com/La-Javaness/xstyled-theme-cli/commit/549009c2468734cdbf8508d67fad9907e64064c9))
+
 # 1.0.0 (2020-07-03)
 
 
