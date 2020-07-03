@@ -10,7 +10,7 @@ const themeNamePattern = /[\w-]+/
  *   <li>Theme color name</li>
  *   <li>Hexadecimal color</li>
  *   <li>RGBA color</li>
- * </ul>
+ * </ul>.
  */
 const colorSchema = Joi.string() // TODO restrict further
 
@@ -67,9 +67,9 @@ const colorFileSchema = Joi.object().keys({
  * Builds a validation schema that always fails, and prints an error message
  * inviting the user to use another key instead. Convenient for when you
  * deprecated a key in an API or when users often make the same typo.
- * @param  {String} alt The correct spelling for the erroneous key that uses
+ * @param  {string} alt The correct spelling for the erroneous key that uses
  * this validation schema.
- * @return {Object} A Joi validation schema, expected to be used only on an
+ * @returns {object} A Joi validation schema, expected to be used only on an
  * object key.
  */
 const altPropertyName = (alt) =>

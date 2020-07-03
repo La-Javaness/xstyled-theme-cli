@@ -14,11 +14,11 @@ const { generateEnumFromObject } = require('./typescript')
  * Generates a CSS-in-JS styles file that contains the theme for one component,
  * as well as its variants, and a function that returns a styled instance which
  * injects the theme variables into its passed components' props.
- * @param {Object} dirs Input and output directories
- * @param  {String}  filename        Name of the style file to generate
- * @param  {[type]}  componentName   Name of the component for which the file is being generated
- * @param  {[type]}  component       Extracted theme data for the component
- * @return {Promise}                 nothing
+ * @param {object} dirs Input and output directories.
+ * @param  {string}  filename        Name of the style file to generate.
+ * @param  {[type]}  componentName   Name of the component for which the file is being generated.
+ * @param  {[type]}  component       Extracted theme data for the component.
+ * @returns {Promise}                 Nothing.
  */
 const generateCssInJS = async (dirs, filename, componentName, component) => {
 	const { themeOutputPath } = dirs
@@ -43,9 +43,9 @@ module.exports.themeVariants = themeVariants
 }
 
 /**
- * Loads component variants and theme values from YAML files in the components folder/
- * @param {Object} dirs Input and output directories
- * @return {Promise} nothing
+ * Loads component variants and theme values from YAML files in the components folder/.
+ * @param {object} dirs Input and output directories.
+ * @returns {Promise} Nothing.
  */
 const buildComponents = async (dirs) => {
 	const { themeSrcPath } = dirs

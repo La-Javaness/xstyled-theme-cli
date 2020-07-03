@@ -38,19 +38,18 @@ const injectBackgroundColors = (themeJS) => {
 // FIXME: not currently supporting deep hierarchies of foregrounds...
 const injectForegroundColors = (themeJS, background) => {
 	map(global.ljnTheme.colors.foregrounds, (value, key) => {
-		themeJS.colors[`fg-${key}`] = resolveColor(
-			typeof value === 'object' ? value[background] || value.default : value
-		)
+		themeJS.colors[`fg-${key}`] = resolveColor(typeof value === 'object' ? value[background] || value.default : value)
 	})
 }
 
 /**
  * Creates the theme.js file to be used by xstyled.
- * @return {Promise} nothing
+ * @param dirs
+ * @returns {Promise} Nothing.
  */
 const createThemeJS = async (dirs) => {
 	step.start('Preparing to generate theme files')
-	const themeJS = Object.assign({}, global.ljnTheme, { colors: {} })
+	const themeJS = { ...global.ljnTheme, colors: {} }
 	injectNamedColors(themeJS)
 	injectBackgroundColors(themeJS)
 	injectForegroundColors(themeJS, 'default')
@@ -68,7 +67,9 @@ const createThemeJS = async (dirs) => {
 /**
  * Creates the OnBackground component with props allowing developers to use a
  * customised theme with typechecking and a clean API.
- * @return {Promise} nothing
+ * @param root0
+ * @param root0.themeOutputPath
+ * @returns {Promise} Nothing.
  */
 const createOnBackground = async ({ themeOutputPath }) => {
 	step.start('Generating the OnBackground component')

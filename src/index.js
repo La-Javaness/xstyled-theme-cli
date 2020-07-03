@@ -17,7 +17,7 @@ const resolveCmd = async (cmd, args) => {
 
 module.exports = () => {
 	const args = minimist(process.argv.slice(2))
-	let cmd = args._[0] || 'help'
+	const cmd = args._[0] || 'help'
 
 	if (!COMMANDS.includes(cmd)) {
 		error(

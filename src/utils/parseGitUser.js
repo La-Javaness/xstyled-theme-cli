@@ -13,7 +13,9 @@ const _getGitUser = (configFile) => {
 /**
  * Returns the username and email of the local Git user, either from the
  * project's config or their global config, if available.
- * @return {?String} The username in the format 'Full Name <email>', or null if not found.
+ * @param root0
+ * @param root0.rootPath
+ * @returns {?string} The username in the format 'Full Name <email>', or null if not found.
  */
 module.exports = ({ rootPath }) => {
 	let gitUser = null

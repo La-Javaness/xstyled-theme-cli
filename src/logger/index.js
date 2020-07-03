@@ -6,9 +6,9 @@ const pad = (messageLen, targetLen, char = ' ') => new Array(Math.max(0, targetL
 
 /**
  * Formats a message with chalk, using preset decoration modes.
- * @param  {String} mode    Decoration mode (one of 'header', 'section'. 'bold', 'dim', 'warning', 'success')
- * @param  {String} message The message to print.
- * @return {String} the same message, decorated accordingly
+ * @param  {string} mode    Decoration mode (one of 'header', 'section'. 'bold', 'dim', 'warning', 'success').
+ * @param  {string} message The message to print.
+ * @returns {string} The same message, decorated accordingly.
  */
 const chalkFormat = (mode, message) => {
 	switch (mode) {
@@ -30,10 +30,10 @@ const chalkFormat = (mode, message) => {
 }
 
 /**
- * Prints a message with decoration using `chalkFormat`
- * @param  {String} mode    Decoration mode (one of 'header', 'section'. 'bold', 'dim', 'warning', 'success')
- * @param  {String} message The message to print.
- * @return {void}
+ * Prints a message with decoration using `chalkFormat`.
+ * @param  {string} mode    Decoration mode (one of 'header', 'section'. 'bold', 'dim', 'warning', 'success').
+ * @param  {string} message The message to print.
+ * @returns {void}
  */
 const log = (mode, message) => {
 	process.stdout.write(chalkFormat(mode, message))
@@ -42,8 +42,8 @@ const log = (mode, message) => {
 /**
  * Prints a message without end of line. To be used with `end`, at the beginning of
  * a step of computation notified to the user of the CLI.
- * @param  {String} message The message explaining the step about to be performed.
- * @return {void}
+ * @param  {string} message The message explaining the step about to be performed.
+ * @returns {void}
  */
 const start = (message) => {
 	process.stdout.write(`${message}...`)
@@ -54,8 +54,8 @@ const start = (message) => {
 
 /**
  * Prints a validation for a message started with `start`. Also prints an end of line.
- * @param  {?Boolean} [success=true] If true, shows a success indicator, else a failure indicator.
- * @return {void}
+ * @param {?boolean} [success] If true, shows a success indicator, else a failure indicator.
+ * @returns {void}
  */
 const end = (success = true) => {
 	let padding = ''
@@ -70,9 +70,9 @@ const end = (success = true) => {
 
 /**
  * Prints an error message to stderr, and potentially exits.
- * @param  {String} message The message to print
- * @param  {?Number|Boolean} [exitCode=1] If set to anything but false, the exit code with which to exit the CLI
- * @return {void}
+ * @param {string} message The message to print.
+ * @param {?number|boolean} [exitCode] If set to anything but false, the exit code with which to exit the CLI.
+ * @returns {void}
  */
 const error = (message, exitCode = 1) => {
 	if (_insideStep) {

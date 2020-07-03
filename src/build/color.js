@@ -9,10 +9,10 @@ const { generateEnumFromObject } = require('./typescript')
 
 /**
  * Takes a color name or reference, and returns a valid CSS color code.
- * @param  {String} colorName         The token to resolve into a valid CSS color code.
- * @param  {String} [state='default']	The name of the surface against which the colour will be displayed.
- * @return {String}                   The matching CSS color code, if found in the theme.
- * @throws if the token identified by `colorName` cannot be resolved for the current theme.
+ * @param {string} colorName         The token to resolve into a valid CSS color code.
+ * @param {string} [state] 	The name of the surface against which the colour will be displayed.
+ * @returns {string}                   The matching CSS color code, if found in the theme.
+ * @throws If the token identified by `colorName` cannot be resolved for the current theme.
  */
 const resolveColor = (colorName, state = 'default') => {
 	if (!global.ljnTheme.colors) {
@@ -66,8 +66,9 @@ const resolveColor = (colorName, state = 'default') => {
 
 /**
  * Loads colors from the `colors.yml` source.
- * @param {Object} dirs Input and output directories
- * @return {Promise} nothing
+ * @param {object} dirs Input and output directories.
+ * @param dirs.themeSrcPath
+ * @returns {Promise} Nothing.
  */
 const buildColors = async ({ themeSrcPath }) => {
 	step.start('Loading color definitions')
@@ -84,7 +85,8 @@ const buildColors = async ({ themeSrcPath }) => {
 
 /**
  * Generates a TS enum for theme colors.
- * @return {Promise} nothing
+ * @param dirs
+ * @returns {Promise} Nothing.
  */
 const exportColorTypescript = (dirs) => {
 	generateEnumFromObject(dirs, 'colors.ts', 'ThemeColors', global.ljnTheme.colors.colors)

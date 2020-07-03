@@ -1,14 +1,14 @@
 const path = require('path')
 
 /**
- * Root directory for commands run from inside a theme, e.g. `build`
- * @type {String}
+ * Root directory for commands run from inside a theme, e.g. `build`.
+ * @type {string}
  */
 const THEME_ROOT = './' // TODO DEBUG THIS // FIXME
 
 /**
- * Root directory for commands run from inside a project, e.g. `search` or `install`
- * @type {String}
+ * Root directory for commands run from inside a project, e.g. `search` or `install`.
+ * @type {string}
  */
 const PROJECT_ROOT = './' // TODO DEBUG THIS // FIXME
 
@@ -30,7 +30,7 @@ module.exports = (args, inProject = true) => {
 
 	/* Output directories for the theme */
 	const THEME_OUTPUT_DIRNAME = 'dist'
-	const themeOutputPath = args['output'] || path.join(rootPath, THEME_OUTPUT_DIRNAME)
+	const themeOutputPath = args.output || path.join(rootPath, THEME_OUTPUT_DIRNAME)
 
 	/* Public path used on the server of a built project */
 	const PUBLIC_PATH = '/public'

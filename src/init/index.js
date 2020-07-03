@@ -100,26 +100,24 @@ module.exports = async (dirs, args) => {
 	}
 	step.end()
 
-	const manifest = Object.assign(
-		{
-			version: opts.version,
-			private: opts.private,
-			files: ['dist'],
-			scripts: {
-				build: `${cliName} build`,
-			},
-			devDependencies: {
-				[cliManifest.name]: `^${cliManifest.version}`,
-			},
-			peerDependencies: {
-				'@xstyled-theme/utils': `^${cliManifest.version}`,
-			},
-			xstyledTheme: {
-				theme: true,
-			},
+	const manifest = {
+		version: opts.version,
+		private: opts.private,
+		files: ['dist'],
+		scripts: {
+			build: `${cliName} build`,
 		},
-		await askPackageInfo(dirs, args)
-	)
+		devDependencies: {
+			[cliManifest.name]: `^${cliManifest.version}`,
+		},
+		peerDependencies: {
+			'@xstyled-theme/utils': `^${cliManifest.version}`,
+		},
+		xstyledTheme: {
+			theme: true,
+		},
+		...(await askPackageInfo(dirs, args)),
+	}
 
 	await writeFile(`${JSON.stringify(sortPackageJson(manifest), null, '\t')}\n`, path.join(rootPath, 'package.json'))
 

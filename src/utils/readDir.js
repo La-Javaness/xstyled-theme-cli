@@ -3,8 +3,8 @@ const fs = require('fs')
 /**
  * Reads a directory and exposes the result as a Promise instead of requiring
  * a callback.
- * @param  {String} dirPath The path of the directory to read.
- * @return {string[]} 				The filenames of files found in the directory.
+ * @param  {string} dirPath The path of the directory to read.
+ * @returns {string[]} 				The filenames of files found in the directory.
  */
 module.exports = (dirPath) => {
 	return new Promise((resolve, reject) => {

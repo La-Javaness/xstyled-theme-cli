@@ -56,7 +56,7 @@ const genSprites = async (files, iconDir, destDir) => {
 
 				spriter.compile(function (error, result) {
 					if (error) {
-						reject('Failed to compile: ' + error)
+						reject(`Failed to compile: ${error}`)
 					}
 
 					for (const mode in result) {
@@ -88,9 +88,7 @@ const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
 			// eslint-disable-next-line no-template-curly-in-string
 			const inlineSvg = body.replace(/fill="[^"]+"/, '${color ? `fill="${color}"` : \'\'}')
 
-			const titleCase = name
-				.replace(/-+./g, (m) => m.slice(-1).toUpperCase())
-				.replace(/./, (m) => m.toUpperCase())
+			const titleCase = name.replace(/-+./g, (m) => m.slice(-1).toUpperCase()).replace(/./, (m) => m.toUpperCase())
 			const [w, h] = size
 				.split(' ')
 				.slice(2)
@@ -110,7 +108,8 @@ const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
 /**
  * Loads icons from the assets directory, optimises them, builds SVG sprites and
  * React components out of the optimised icons, and generates a TS enum for icon names.
- * @return {Promise} nothing
+ * @param dirs
+ * @returns {Promise} Nothing.
  */
 const buildIcons = async function (dirs) {
 	const { themeIconsPath, themeOutputPath } = dirs

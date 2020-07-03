@@ -10,7 +10,8 @@ const { generateEnumFromObject } = require('./typescript')
 /**
  * Loads icons from the assets directory, optimises them, builds SVG sprites and
  * React components out of the optimised icons, and generates a TS enum for icon names.
- * @return {Promise} nothing
+ * @param dirs
+ * @returns {Promise} Nothing.
  */
 const buildTypography = async (dirs) => {
 	const { themeSrcPath } = dirs

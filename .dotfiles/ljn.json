@@ -1,9 +1,22 @@
 {
 	"repositoryName": "xstyled-theme-cli",
-	"frontOrBack": "Back-end",
 	"appType": "Library without framework",
-	"isLibrary": true,
+	"isLibrary": false,
 	"withReact": false,
 	"withStyledComponents": false,
-	"withTypescript": false
+	"withTypescript": false,
+	"monorepo": "NO_MONOREPO",
+	"frontOrBack": "CLI",
+	"projectType": "CLI",
+	"binName": "xstyled-theme",
+	"srcDir": "src",
+	"isApp": false,
+	"isCli": true,
+	"withCypress": false,
+	"withBabel": false,
+	"styleStack": [],
+	"withXstyledTheme": false,
+	"withSASSLoaders": false,
+	"withCSSLoaders": false,
+	"extensions": ".js,.jsx"
 }

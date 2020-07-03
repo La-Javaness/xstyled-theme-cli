@@ -1,7 +1,7 @@
 module.exports = {
 	printWidth: 120,
 	useTabs: true,
-	tabWidth: 4,
+	tabWidth: 2,
 	singleQuote: true,
 	semi: false,
 	endOfLine: 'lf',
@@ -9,7 +9,7 @@ module.exports = {
 	bracketSpacing: true,
 	overrides: [
 		{
-			files: './**/*.js',
+			files: './**/*.{js,ts,jsx,tsx}',
 			options: {
 				parser: 'babylon',
 			},

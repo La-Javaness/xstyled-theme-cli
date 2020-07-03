@@ -6,7 +6,10 @@ const removeDirectory = require('../utils/removeDirectory')
 
 /**
  * Copies source images into the theme output directory.
- * @return {Promise} nothing
+ * @param root0
+ * @param root0.themeImagesPath
+ * @param root0.themeOutputPath
+ * @returns {Promise} Nothing.
  */
 const buildImages = async function ({ themeImagesPath, themeOutputPath }) {
 	step.start('Copying images into theme')

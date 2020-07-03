@@ -9,7 +9,8 @@ const { generateEnumFromArray } = require('./typescript')
 /**
  * Loads elements of the theme from a variety of YAML sources, exposes them into
  * the theme structure, and builds the corresponding TS definition files.
- * @return {Promise} nothing
+ * @param dirs
+ * @returns {Promise} Nothing.
  */
 const buildConstants = async (dirs) => {
 	const { themeSrcPath } = dirs

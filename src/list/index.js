@@ -36,9 +36,7 @@ module.exports = async (dirs, args) => {
 			const isCurrent = currentTheme === theme.name
 			const headerText = isCurrent ? `${theme.name}${currentSuffix}` : theme.name
 			const padding = ' '.repeat(longestNameLength - headerText.length)
-			const header = isCurrent
-				? chalk.bgBlueBright.whiteBright.bold(headerText)
-				: chalk.bgBlue.whiteBright(headerText)
+			const header = isCurrent ? chalk.bgBlueBright.whiteBright.bold(headerText) : chalk.bgBlue.whiteBright(headerText)
 
 			process.stdout.write(`${header}:${padding} ${theme.description || chalk.dim.italic('no description')}\n`)
 		})

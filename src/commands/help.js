@@ -29,8 +29,7 @@ ${chalkFormat('section', 'Project Commands:')}
 
 ${chalkFormat('section', 'Theme Development Commands:')}
 
- 	${chalk`{magentaBright init} {dim ....} Create a new theme in an empty folder. You must first run
-	          {underline yarn init}.`}
+ 	${chalk`{magentaBright init} {dim ....} Create a new theme in an empty folder.`}
 
 	${chalk`{magentaBright build} {dim ...} Build a theme and associated asssets so it may be published.`}
 
