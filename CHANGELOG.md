@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.1.0...v1.1.1) (2020-07-06)
+
+
+### Bug Fixes
+
+* Rename utils to internals also in generated theme code ([a5ec5fb](https://github.com/La-Javaness/xstyled-theme-cli/commit/a5ec5fb1c49d957249417b2319bb6172b7e9eae1))
+
 # [1.1.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.0.0...v1.1.0) (2020-07-03)
 
 
