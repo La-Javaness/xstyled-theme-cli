@@ -24,7 +24,7 @@ const generateCssInJS = async (dirs, filename, componentName, component) => {
 	const { themeOutputPath } = dirs
 
 	step.start(`Generating CSS-in-JS file for component '${componentName}'`)
-	const contents = `const genStyledFunctionFactory = require('@xstyled-theme/utils')
+	const contents = `const genStyledFunctionFactory = require('@xstyled-theme/internals')
 
 const themeVars = ${JSON.stringify(component.core, null, '\t')}
 
