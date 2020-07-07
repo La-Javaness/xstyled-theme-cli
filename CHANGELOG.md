@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.1.1...v1.2.0) (2020-07-07)
+
+
+### Features
+
+* Re-enable Typecript compilation to support JS codebases ([a5cbaca](https://github.com/La-Javaness/xstyled-theme-cli/commit/a5cbaca8344cb0da9c8007e53dca5cbf8f13c666))
+
 ## [1.1.1](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.1.0...v1.1.1) (2020-07-06)
 
 
