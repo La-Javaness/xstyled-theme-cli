@@ -60,14 +60,13 @@ const transpileTS = async (dirs) => {
 	const inputFiles = (await readDir(enumsPath))
 		.filter((file) => !file.endsWith('.d.ts') && file.endsWith('.ts'))
 		.map((tsFilename) => path.join(enumsPath, tsFilename))
-	const trashFolder = path.join(themeOutputPath, 'DELETE')
 
 	const options = {
 		/* Here the compiler options */
 		allowSyntheticDefaultImports: true,
 		declaration: true,
 		declarationDir: path.join(themeOutputPath, 'declarations'),
-		outDir: trashFolder,
+		outDir: path.join(themeOutputPath, 'enums'),
 		esModuleInterop: true,
 		moduleResolution: 'node',
 		sourceMap: true,
@@ -78,9 +77,6 @@ const transpileTS = async (dirs) => {
 	const program = ts.createProgram(inputFiles, options)
 	const emitResult = program.emit()
 	const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(emitResult.diagnostics)
-
-	// We can't get tsc not to emit js files, but we only want declarations and TS sources
-	await fs.promises.rmdir(trashFolder, { recursive: true })
 
 	allDiagnostics.forEach((diagnostic) => {
 		if (diagnostic.file) {
