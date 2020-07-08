@@ -125,6 +125,7 @@ const typographyFileSchema = Joi.object().keys({
 			lineHeights: altPropertyName('lineHeight'),
 			textDecorations: altPropertyName('textDecoration'),
 			textTransforms: altPropertyName('textTransform'),
+			colors: altPropertyName('color'),
 		})
 	),
 })
