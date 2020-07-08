@@ -2,7 +2,6 @@ const fs = require('fs')
 const { camelCase, map, startCase } = require('lodash')
 const mkdirp = require('mkdirp')
 const path = require('path')
-const util = require('util')
 
 const { step } = require('../logger')
 
