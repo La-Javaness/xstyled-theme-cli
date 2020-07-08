@@ -66,9 +66,8 @@ const resolveColor = (colorName, state = 'default') => {
 
 /**
  * Loads colors from the `colors.yml` source.
- * @param {object} dirs Input and output directories.
- * @param dirs.themeSrcPath
- * @returns {Promise} Nothing.
+ * @param {object} dirs 						 Input and output directories.
+ * @param {string} dirs.themeSrcPath The input folder for the theme YAML files.
  */
 const buildColors = async ({ themeSrcPath }) => {
 	step.start('Loading color definitions')
@@ -85,8 +84,7 @@ const buildColors = async ({ themeSrcPath }) => {
 
 /**
  * Generates a TS enum for theme colors.
- * @param dirs
- * @returns {Promise} Nothing.
+ * @param {object} dirs Input and output directories.
  */
 const exportColorTypescript = (dirs) => {
 	generateEnumFromObject(dirs, 'colors.ts', 'ThemeColors', global.ljnTheme.colors.colors)

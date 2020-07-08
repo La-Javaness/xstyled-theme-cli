@@ -43,8 +43,7 @@ const injectForegroundColors = (themeJS, background) => {
 
 /**
  * Creates the theme.js file to be used by xstyled.
- * @param dirs
- * @returns {Promise} Nothing.
+ * @param {object} dirs The directories for this run of the CLI.
  */
 const createThemeJS = async (dirs) => {
 	step.start('Preparing to generate theme files')
@@ -66,9 +65,10 @@ const createThemeJS = async (dirs) => {
 /**
  * Creates the OnBackground component with props allowing developers to use a
  * customised theme with typechecking and a clean API.
- * @param root0
- * @param root0.themeOutputPath
+ * @param   {object}  dirs								 The directories for this run of the CLI.
+ * @param   {string}  dirs.themeOutputPath The output path for the theme.
  * @returns {Promise} Nothing.
+ * @async
  */
 const createOnBackground = async ({ themeOutputPath }) => {
 	step.start('Generating the OnBackground component')

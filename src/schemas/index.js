@@ -6,10 +6,10 @@ const themeNamePattern = /[\w-]+/
 
 /** Validation schema for a color name. Can either be a:
  * <ul>
- *   <li>CSS color name</li>
- *   <li>Theme color name</li>
- *   <li>Hexadecimal color</li>
- *   <li>RGBA color</li>
+ * <li>CSS color name</li>
+ * <li>Theme color name</li>
+ * <li>Hexadecimal color</li>
+ * <li>RGBA color</li>
  * </ul>.
  */
 const colorSchema = Joi.string() // TODO restrict further
@@ -37,16 +37,16 @@ const foregroundColorSchema = Joi.alternatives().try(
 /** Schema for a font-size CSS property, allowing for arbitrary strings to support theme props. */
 const fontSizeSchema = Joi.alternatives().try(Joi.string(), Joi.number().positive())
 
-/** Schema for a font-weight CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a font-weight CSS property, allowing for arbitrary strings to support theme props. */
 const fontWeightSchema = Joi.alternatives().try(Joi.string(), Joi.number().min(100).max(900))
 
-/** Schema for a line-height CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a line-height CSS property, allowing for arbitrary strings to support theme props. */
 const lineHeightSchema = Joi.alternatives().try(Joi.string(), Joi.number())
 
-/** Schema for a font-family CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a font-family CSS property, allowing for arbitrary strings to support theme props. */
 const fontFamilySchema = Joi.string()
 
-/** Schema for a letter-spacing CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a letter-spacing CSS property, allowing for arbitrary strings to support theme props. */
 const letterSpacingSchema = Joi.string()
 
 /** Schema for the name of a variant in a component. */
