@@ -35,10 +35,20 @@ const injectBackgroundColors = (themeJS) => {
 }
 
 // FIXME: not currently supporting deep hierarchies of foregrounds...
-const injectForegroundColors = (themeJS, background) => {
+const injectForegroundColorsInBackgroundTheme = (themeJS, background) => {
 	map(global.ljnTheme.colors.foregrounds, (value, key) => {
-		themeJS.colors[`fg-${key}`] = resolveColor(typeof value === 'object' ? value[background] || value.default : value)
+		themeJS.colors[key] = resolveColor(typeof value === 'object' ? value[background] || value.default : value)
 	})
+}
+
+const injectAllForegroundColors = (themeJS) => {
+	Object.keys(global.ljnTheme.colors.backgrounds).forEach((background) =>
+		map(global.ljnTheme.colors.foregrounds, (value, key) => {
+			themeJS.colors[`fg-${key}-on-${background}`] = resolveColor(
+				typeof value === 'object' ? value[`on-${background}`] || value.default : value
+			)
+		})
+	)
 }
 
 /**
@@ -50,15 +60,16 @@ const createThemeJS = async (dirs) => {
 	const themeJS = { ...global.ljnTheme, colors: {} }
 	injectNamedColors(themeJS)
 	injectBackgroundColors(themeJS)
-	injectForegroundColors(themeJS, 'default')
+	injectAllForegroundColors(themeJS)
 	step.end()
 
 	makeThemeFile(dirs, 'index.js', themeJS)
 
-	Object.keys(global.ljnTheme.colors.backgrounds).forEach((background) => {
+	map(global.ljnTheme.colors.backgrounds, (bgValue, bgKey) => {
 		const bgThemeJS = { colors: {} }
-		injectForegroundColors(bgThemeJS, `on-${background}`)
-		makeThemeFile(dirs, `on${startCase(camelCase(background))}.js`, bgThemeJS)
+		injectForegroundColorsInBackgroundTheme(bgThemeJS, `on-${bgKey}`)
+		bgThemeJS.colors.background = resolveColor(bgValue)
+		makeThemeFile(dirs, `on${startCase(camelCase(bgKey))}.js`, bgThemeJS)
 	})
 }
 
@@ -73,13 +84,12 @@ const createThemeJS = async (dirs) => {
 const createOnBackground = async ({ themeOutputPath }) => {
 	step.start('Generating the OnBackground component')
 
-	const fileContents = `import React, { FunctionComponent, ReactNode } from 'react'
+	const fileContents = `import React from 'react'
 import { ThemeProvider } from '@xstyled/styled-components'
 
-import BackgroundColors from 'interfaces/theme/backgroundColors'
-import defaultTheme from 'theme/theme'
+import defaultTheme from './index'
 ${Object.keys(global.ljnTheme.colors.backgrounds)
-	.map((theme) => `import ${theme}Theme from 'theme/on${startCase(camelCase(theme))}.js'`)
+	.map((theme) => `import ${theme}Theme from './on${startCase(camelCase(theme))}.js'`)
 	.join('\n')}
 
 const backgroundThemes = {
@@ -88,19 +98,21 @@ ${Object.keys(global.ljnTheme.colors.backgrounds)
 	.join('\n')}
 }
 
-interface IOnBackgroundProps {
-	background: BackgroundColors
-	children?: ReactNode
-}
-
-const OnBackground: FunctionComponent<IOnBackgroundProps> = ({ background = 'default', children = null }) => {
+const OnBackground = ({ background = 'default', children = null }) => {
 	let theme = null
 
 	if (background !== 'default') {
-		theme = Object.assign(theme || {}, backgroundThemes[background])
+		theme = backgroundThemes[background]
 	}
+	console.log(\`The OnBackground theme is now \${background} aka \${theme}\`)
 
-	return <ThemeProvider theme={theme || defaultTheme}>{children}</ThemeProvider>
+	return React.createElement(
+		ThemeProvider,
+		{
+	  	theme: theme || defaultTheme
+		},
+		children
+	)
 }
 
 export default OnBackground
@@ -108,7 +120,7 @@ export default OnBackground
 
 	const themeDir = path.resolve(themeOutputPath, 'theme')
 	mkdirp.sync(themeDir)
-	fs.writeFileSync(path.join(themeDir, 'OnBackground.tsx'), fileContents)
+	fs.writeFileSync(path.join(themeDir, 'OnBackground.jsx'), fileContents)
 
 	step.end()
 }
