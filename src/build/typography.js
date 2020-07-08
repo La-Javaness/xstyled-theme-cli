@@ -32,6 +32,8 @@ const buildTypography = async (dirs) => {
 		fontWeight: 'fontWeights',
 		letterSpacing: 'letterSpacings',
 		lineHeight: 'lineHeights',
+		textDecoration: 'textDecorations',
+		textTransform: 'textTransforms',
 	}
 
 	step.start('Parsing text styles')
