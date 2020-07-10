@@ -55,23 +55,37 @@ const injectAllForegroundColors = (themeJS) => {
 	)
 }
 
+const makeThemeObject = (background = null) => {
+	const themeJS = { ...global.ljnTheme, colors: {} }
+
+	injectNamedColors(themeJS)
+	injectBackgroundColors(themeJS)
+	injectAllForegroundColors(themeJS)
+
+	if (background) {
+		injectForegroundColorsInBackgroundTheme(themeJS, `on-${background}`)
+		themeJS.colors.background = resolveColor(global.ljnTheme.colors.backgrounds[background])
+	} else {
+		// TEMP, see https://github.com/La-Javaness/xstyled-theme-cli/issues/10
+		themeJS.colors.background = '#ffffff'
+	}
+
+	return themeJS
+}
+
 /**
  * Creates the theme.js file to be used by xstyled.
  * @param {object} dirs The directories for this run of the CLI.
  */
 const createThemeJS = async (dirs) => {
 	step.start('Preparing to generate theme files')
-	const themeJS = { ...global.ljnTheme, colors: {} }
-	injectNamedColors(themeJS)
-	injectBackgroundColors(themeJS)
-	injectAllForegroundColors(themeJS)
+	const themeJS = makeThemeObject()
 	step.end()
 
 	makeThemeFile(dirs, 'index.js', themeJS)
 
 	map(global.ljnTheme.colors.backgrounds, (bgValue, bgKey) => {
-		const bgThemeJS = { colors: {} }
-		injectForegroundColorsInBackgroundTheme(bgThemeJS, `on-${bgKey}`)
+		const bgThemeJS = makeThemeObject(bgKey)
 		bgThemeJS.colors.background = resolveColor(bgValue)
 		makeThemeFile(dirs, `on${startCase(camelCase(bgKey))}.js`, bgThemeJS)
 	})
@@ -108,7 +122,6 @@ const OnBackground = ({ background = 'default', children = null }) => {
 	if (background !== 'default') {
 		theme = backgroundThemes[background]
 	}
-	console.log(\`The OnBackground theme is now \${background} aka \${theme}\`)
 
 	return React.createElement(
 		ThemeProvider,
