@@ -12,6 +12,10 @@ const makeThemeFile = ({ themeOutputPath }, filename, themeJS, logSuffix = '') =
 
 	const fileContents = `const theme = ${JSON.stringify(themeJS, null, '\t')}
 
+theme.transformers = {
+	space: (value) => value in theme.spaces? theme.spaces[value] : value,
+}
+
 module.exports = theme
 `
 
