@@ -10,6 +10,64 @@ const readDir = require('../utils/readDir')
 const { resolveColor } = require('./color')
 const { generateEnumFromArray } = require('./typescript')
 
+const _replaceFills = (content, color) => {
+	if (color) {
+		const resolvedFill = `fill="${resolveColor(color)}"`
+
+		return content
+			.replace(new RegExp('fill="[^"]+"', 'g'), '')
+			.replace(new RegExp('<path', 'g'), `<path ${resolvedFill}`)
+			.replace(new RegExp('<circle', 'g'), `<circle ${resolvedFill}`)
+	}
+	return content.replace(new RegExp('fill="[^"]+"', 'g'), '')
+}
+
+const _genOneSprite = (key, color, iconsContent, destDir) =>
+	new Promise((resolve, reject) => {
+		const spriterConfig = {
+			dest: destDir,
+			mode: {
+				css: false,
+				symbol: false,
+				view: !!color && {
+					dest: 'view',
+					sprite: `sprite-${key}.svg`,
+					bust: false,
+					render: {
+						css: true,
+					},
+					example: true,
+				},
+			},
+			shape: {
+				transform: ['svgo'],
+				dest: 'svgo',
+			},
+		}
+		const spriter = new SVGSpriter(spriterConfig)
+
+		iconsContent.forEach((icon) => {
+			spriter.add(icon.fullPath, path.basename(icon.fullPath), _replaceFills(icon.content, color))
+		})
+
+		spriter.compile((error, result) => {
+			if (error) {
+				reject(new Error(`Failed to compile: ${error}`))
+			}
+
+			// eslint-disable-next-line guard-for-in
+			for (const mode in result) {
+				// eslint-disable-next-line guard-for-in
+				for (const resource in result[mode]) {
+					mkdirp.sync(path.dirname(result[mode][resource].path))
+					fs.writeFileSync(result[mode][resource].path, result[mode][resource].contents)
+				}
+			}
+
+			resolve()
+		})
+	})
+
 const genSprites = async (files, iconDir, destDir) => {
 	const iconsContent = files
 		.filter((file) => file.endsWith('.svg'))
@@ -20,56 +78,14 @@ const genSprites = async (files, iconDir, destDir) => {
 			content: fs.readFileSync(fullPath, { encoding: 'utf-8' }),
 		}))
 
-	const spritePromises = map(
-		global.ljnTheme.colors.colors,
-		(value, key) =>
-			new Promise(async (resolve, reject) => {
-				const spriterConfig = {
-					dest: destDir,
-					mode: {
-						css: false,
-						symbol: false,
-						view: {
-							dest: 'view',
-							sprite: `sprite-${key}.svg`,
-							bust: false,
-							render: {
-								css: true,
-							},
-							example: true,
-						},
-					},
-					shape: {
-						transform: ['svgo'],
-						dest: 'svgo',
-					},
-				}
-				const spriter = new SVGSpriter(spriterConfig)
-
-				iconsContent.forEach((icon) => {
-					spriter.add(
-						icon.fullPath,
-						path.basename(icon.fullPath),
-						icon.content.replace(/fill="[^"]+/, `fill="${resolveColor(value)}`)
-					)
-				})
-
-				spriter.compile(function (error, result) {
-					if (error) {
-						reject(`Failed to compile: ${error}`)
-					}
-
-					for (const mode in result) {
-						for (const resource in result[mode]) {
-							mkdirp.sync(path.dirname(result[mode][resource].path))
-							fs.writeFileSync(result[mode][resource].path, result[mode][resource].contents)
-						}
-					}
-
-					resolve()
-				})
-			})
+	const spritePromises = map(global.ljnTheme.colors.colors, (value, key) =>
+		_genOneSprite(key, value, iconsContent, destDir)
 	)
+
+	/* NOTE: Gen a sprite which we'll toss away just to ensure we generate SVGOs
+	 * without fill instructions. This will enable customisation of the inline
+	 * SVG components with CSS. */
+	_genOneSprite('clear', null, iconsContent, destDir)
 
 	return Promise.all(spritePromises)
 }
