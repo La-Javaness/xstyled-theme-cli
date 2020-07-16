@@ -22,3 +22,6 @@ foregrounds:
     on-dark: white
 
   error: '#dd0060'          # A foreground color can be made constant with this shorthand
+
+defaultBackground: white
+defaultColor: '#123c00'

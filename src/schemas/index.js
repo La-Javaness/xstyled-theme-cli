@@ -67,6 +67,8 @@ const colorFileSchema = Joi.object().keys({
 	colors: Joi.object().pattern(themeNamePattern, colorSchema),
 	backgrounds: Joi.object().pattern(themeNamePattern, colorSchema),
 	foregrounds: Joi.object().pattern(themeNamePattern, foregroundColorSchema),
+	defaultBackground: colorSchema.required(),
+	defaultColor: colorSchema.required(),
 })
 
 /**

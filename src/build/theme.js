@@ -55,6 +55,22 @@ const injectAllForegroundColors = (themeJS) => {
 	)
 }
 
+const injectColorMeta = (themeJS, background) => {
+	/* Useful if you need a mapping from a theme color name to a unique identifier
+	 * based on the actual color, eg. to generate icon sprites for each color in
+	 * the theme. */
+	themeJS.colorMeta = {
+		static: Object.keys(global.ljnTheme.colors.colors),
+		variable: {},
+		defaultBackground: global.ljnTheme.colors.defaultBackground,
+		defaultColor: global.ljnTheme.colors.defaultColor,
+	}
+
+	Object.keys(global.ljnTheme.colors.foregrounds).forEach((foreground) => {
+		themeJS.colorMeta.variable[foreground] = resolveColor(foreground, background || 'default', 'origin')
+	})
+}
+
 const makeThemeObject = (background = null) => {
 	const themeJS = { ...global.ljnTheme, colors: {} }
 
@@ -66,8 +82,11 @@ const makeThemeObject = (background = null) => {
 		injectForegroundColorsInBackgroundTheme(themeJS, `on-${background}`)
 		themeJS.colors.background = resolveColor(global.ljnTheme.colors.backgrounds[background])
 	} else {
-		// TEMP, see https://github.com/La-Javaness/xstyled-theme-cli/issues/10
-		themeJS.colors.background = '#ffffff'
+		injectForegroundColorsInBackgroundTheme(themeJS, `default`)
+		themeJS.colors.background = global.ljnTheme.colors.defaultBackground
+
+		// We only need the colorMeta in the index theme. Keep it light.
+		injectColorMeta(themeJS, background)
 	}
 
 	return themeJS
