@@ -43,6 +43,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.9.2",
 		"@hapi/joi": "^17.1.1",
+		"@xstyled-theme/system": "^1.0.0",
 		"chalk": "^4.0.0",
 		"dotenv": "^8.2.0",
 		"fontface-styled-components": "^1.0.0",

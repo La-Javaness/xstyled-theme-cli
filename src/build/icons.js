@@ -3,8 +3,9 @@ const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp')
 const { map } = require('lodash')
+const { rgbaToHex } = require('@xstyled-theme/system')
 
-const { step } = require('../logger')
+const { log, step } = require('../logger')
 const readDir = require('../utils/readDir')
 
 const { resolveColor } = require('./color')
@@ -22,8 +23,21 @@ const _replaceFills = (content, color) => {
 	return content.replace(new RegExp('fill="[^"]+"', 'g'), '')
 }
 
-const _genOneSprite = (key, color, iconsContent, destDir) =>
+const _genOneSprite = (color, iconsContent, destDir) =>
 	new Promise((resolve, reject) => {
+		/* Skip sprite regeneration if in development/debug mode. Still generate the
+		 * no-fill SVGO sprite for the sake of running the code and having the icons
+		 * available and up-to-date for React component generation. */
+		if (
+			process.env.XSTYLED_THEME_DEBUG &&
+			color &&
+			fs.existsSync(path.join(destDir, 'view', `sprite-${color.substr(1)}.svg`))
+		) {
+			log('dim', `\nSkipping SVG sprite for '${color}' as a file already exists`)
+			resolve()
+			return
+		}
+
 		const spriterConfig = {
 			dest: destDir,
 			mode: {
@@ -31,7 +45,7 @@ const _genOneSprite = (key, color, iconsContent, destDir) =>
 				symbol: false,
 				view: !!color && {
 					dest: 'view',
-					sprite: `sprite-${key}.svg`,
+					sprite: `sprite-${color ? color.substr(1) : 'nofill'}.svg`,
 					bust: false,
 					render: {
 						css: true,
@@ -53,6 +67,7 @@ const _genOneSprite = (key, color, iconsContent, destDir) =>
 		spriter.compile((error, result) => {
 			if (error) {
 				reject(new Error(`Failed to compile: ${error}`))
+				return
 			}
 
 			// eslint-disable-next-line guard-for-in
@@ -78,16 +93,22 @@ const genSprites = async (files, iconDir, destDir) => {
 			content: fs.readFileSync(fullPath, { encoding: 'utf-8' }),
 		}))
 
-	const spritePromises = map(global.ljnTheme.colors.colors, (value, key) =>
-		_genOneSprite(key, value, iconsContent, destDir)
+	/* Get all possible resolved colors for foregrounds, and then convert them to hex codes so we can
+	 * always provide an icon sprite for a given theme color. */
+	const spriteColors = new Set(Object.values(global.ljnTheme.colors.colors).map((colorName) => resolveColor(colorName)))
+	Object.keys(global.ljnTheme.colors.backgrounds).forEach((background) =>
+		map(global.ljnTheme.colors.foregrounds, (value) => {
+			spriteColors.add(resolveColor(typeof value === 'object' ? value[`on-${background}`] || value.default : value))
+		})
 	)
+
+	const spriteHexCodes = Array.from(spriteColors).map((code) => rgbaToHex(code))
+	const spritePromises = spriteHexCodes.map((code) => _genOneSprite(code, iconsContent, destDir))
 
 	/* NOTE: Gen a sprite which we'll toss away just to ensure we generate SVGOs
 	 * without fill instructions. This will enable customisation of the inline
-	 * SVG components with CSS. */
-	_genOneSprite('clear', null, iconsContent, destDir)
-
-	return Promise.all(spritePromises)
+	 * SVG components with CSS `fill` instructions. */
+	await Promise.all([...spritePromises, _genOneSprite(null, iconsContent, destDir)])
 }
 
 const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
@@ -124,10 +145,10 @@ const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
 /**
  * Loads icons from the assets directory, optimises them, builds SVG sprites and
  * React components out of the optimised icons, and generates a TS enum for icon names.
- * @param dirs
+ * @param   {object}  dirs The input and output dirs for this instance of the CLI.
  * @returns {Promise} Nothing.
  */
-const buildIcons = async function (dirs) {
+const buildIcons = async (dirs) => {
 	const { themeIconsPath, themeOutputPath } = dirs
 
 	const destDir = path.join(themeOutputPath, 'icons')
