@@ -28,12 +28,14 @@ module.exports = theme
 
 const injectNamedColors = (themeJS) => {
 	map(global.ljnTheme.colors.colors, (value, key) => {
+		// eslint-disable-next-line no-param-reassign
 		themeJS.colors[key] = resolveColor(value)
 	})
 }
 
 const injectBackgroundColors = (themeJS) => {
 	map(global.ljnTheme.colors.backgrounds, (value, key) => {
+		// eslint-disable-next-line no-param-reassign
 		themeJS.colors[`bg-${key}`] = resolveColor(value)
 	})
 }
@@ -41,6 +43,7 @@ const injectBackgroundColors = (themeJS) => {
 // FIXME: not currently supporting deep hierarchies of foregrounds...
 const injectForegroundColorsInBackgroundTheme = (themeJS, background) => {
 	map(global.ljnTheme.colors.foregrounds, (value, key) => {
+		// eslint-disable-next-line no-param-reassign
 		themeJS.colors[key] = resolveColor(typeof value === 'object' ? value[background] || value.default : value)
 	})
 }
@@ -48,6 +51,7 @@ const injectForegroundColorsInBackgroundTheme = (themeJS, background) => {
 const injectAllForegroundColors = (themeJS) => {
 	Object.keys(global.ljnTheme.colors.backgrounds).forEach((background) =>
 		map(global.ljnTheme.colors.foregrounds, (value, key) => {
+			// eslint-disable-next-line no-param-reassign
 			themeJS.colors[`fg-${key}-on-${background}`] = resolveColor(
 				typeof value === 'object' ? value[`on-${background}`] || value.default : value
 			)
@@ -59,6 +63,7 @@ const injectColorMeta = (themeJS, background) => {
 	/* Useful if you need a mapping from a theme color name to a unique identifier
 	 * based on the actual color, eg. to generate icon sprites for each color in
 	 * the theme. */
+	// eslint-disable-next-line no-param-reassign
 	themeJS.colorMeta = {
 		static: Object.keys(global.ljnTheme.colors.colors),
 		variable: {},
@@ -67,6 +72,7 @@ const injectColorMeta = (themeJS, background) => {
 	}
 
 	Object.keys(global.ljnTheme.colors.foregrounds).forEach((foreground) => {
+		// eslint-disable-next-line no-param-reassign
 		themeJS.colorMeta.variable[foreground] = resolveColor(foreground, background || 'default', 'origin')
 	})
 }
