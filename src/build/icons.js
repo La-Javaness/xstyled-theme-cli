@@ -111,9 +111,12 @@ const genSprites = async (files, iconDir, destDir) => {
 	await Promise.all([...spritePromises, _genOneSprite(null, iconsContent, destDir)])
 }
 
-const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
+const genSvgComponents = (files, optimisedInputDir, destDir, componentDestDir) => {
 	return new Promise((resolve) => {
+		mkdirp.sync(destDir)
 		mkdirp.sync(componentDestDir)
+
+		const iconsExports = {}
 
 		for (const file of files) {
 			// Copied from https://www.npmjs.com/package/@nrk/svg-to-js
@@ -122,8 +125,11 @@ const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
 			const name = file.slice(0, -4)
 			const body = code.replace(/^[^>]+>|<[^<]+$/g, '').replace(/\s*([<>])\s*/g, '$1') // Minified SVG body
 
-			// eslint-disable-next-line no-template-curly-in-string
-			const inlineSvg = body.replace(/fill="[^"]+"/, '${color ? `fill="${color}"` : \'\'}')
+			const inlineSvg = body
+				// eslint-disable-next-line no-template-curly-in-string
+				.replace(new RegExp('<path', 'g'), '<path ${color ? `fill="${color}"` : \'\'}')
+				// eslint-disable-next-line no-template-curly-in-string
+				.replace(new RegExp('<circle', 'g'), '<circle ${color ? `fill="${color}"` : \'\'}')
 
 			const titleCase = name.replace(/-+./g, (m) => m.slice(-1).toUpperCase()).replace(/./, (m) => m.toUpperCase())
 			const [w, h] = size
@@ -136,7 +142,20 @@ const genSvgComponents = (files, optimisedInputDir, componentDestDir) => {
 				path.join(componentDestDir, `${titleCase}.js`),
 				`import React from 'react'\n\nconst ${titleCase} = ({color}) => {\n\t${jsx}\n}\n\nexport default ${titleCase}\n`
 			)
+
+			iconsExports[name] = titleCase
 		}
+
+		fs.writeFileSync(
+			path.join(destDir, 'index.js'),
+			`${Object.entries(iconsExports)
+				.map(([, titleCase]) => `import ${titleCase} from '../components/icons/${titleCase}'\n`)
+				.join('')}\n\nexport {\n${Object.entries(iconsExports)
+				.map(([, titleCase]) => `\t${titleCase},\n`)
+				.join('')}}\n\nexport default {\n${Object.entries(iconsExports)
+				.map(([name, titleCase]) => `\t'${name}': ${titleCase},\n`)
+				.join('')}}\n\n`
+		)
 
 		resolve()
 	})
@@ -164,7 +183,7 @@ const buildIcons = async (dirs) => {
 	// NOTE: Won't exist if there were no icons
 	if (fs.existsSync(optimisedInputDir)) {
 		const optimisedSvgs = await readDir(optimisedInputDir)
-		await genSvgComponents(optimisedSvgs, optimisedInputDir, componentDestDir)
+		await genSvgComponents(optimisedSvgs, optimisedInputDir, destDir, componentDestDir)
 	}
 	step.end()
 
