@@ -2,6 +2,7 @@ const fs = require('fs')
 const { log, step } = require('../logger')
 const getJSFilePaths = require('../utils/getJSFilePaths')
 
+const { transpileJS } = require('./babel')
 const { buildComponents } = require('./components')
 const { buildColors, exportColorTypescript } = require('./color')
 const { buildConstants } = require('./constants')
@@ -40,10 +41,9 @@ module.exports = async (dirs) => {
 	await createThemeJS(dirs)
 	await createOnBackground(dirs)
 
-	log('header', 'Transpiling TypeScript to JavaScript')
+	log('header', 'Transpiling Code')
 	await transpileTS(dirs)
+	// await transpileJS(dirs)
 
 	log('success', '\nDone!\n')
-
-	// TODO: Parse component definitions
 }
