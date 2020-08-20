@@ -2,7 +2,7 @@
 	"name": "@xstyled-theme/cli",
 	"version": "0.3.0",
 	"description": "A CLI that builds Xstyled themes from assets, and helpers to use them in your project",
-	"homepage": "/",
+	"homepage": "https://github.com/La-Javaness/xstyled-theme-cli#readme",
 	"license": "MIT",
 	"author": "Steve Dodier-Lazaro <steve@lajavaness.com>",
 	"main": "src/index.js",
@@ -24,7 +24,6 @@
 	"bugs": {
 		"url": "https://github.com/La-Javaness/xstyled-theme-cli/issues"
 	},
-	"homepage": "https://github.com/La-Javaness/xstyled-theme-cli#readme",
 	"scripts": {
 		"cli": "node --unhandled-rejections=strict bin/xstyled-theme",
 		"cli:dev": "cross-env NODE_ENV=development yarn cli",

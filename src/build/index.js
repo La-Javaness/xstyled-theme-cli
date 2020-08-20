@@ -1,4 +1,6 @@
-const { log } = require('../logger')
+const fs = require('fs')
+const { log, step } = require('../logger')
+const getJSFilePaths = require('../utils/getJSFilePaths')
 
 const { buildComponents } = require('./components')
 const { buildColors, exportColorTypescript } = require('./color')
@@ -12,6 +14,14 @@ const { buildTypography } = require('./typography')
 
 module.exports = async (dirs) => {
 	global.ljnTheme = {}
+
+	log('header', 'Cleaning expired build assets, if any')
+	step.start('Deleting old code assets')
+	if (fs.existsSync(dirs.themeOutputPath)) {
+		const oldJSFiles = await getJSFilePaths(dirs, true)
+		oldJSFiles.forEach((file) => fs.unlinkSync(file))
+	}
+	step.end()
 
 	log('header', 'Loading and parsing theme source')
 	// DO NOT EDIT THIS ORDER.
