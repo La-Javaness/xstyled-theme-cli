@@ -7,7 +7,7 @@ const { log } = require('../logger')
 module.exports = async (content, outputPath, { execute = false, overwrite = false } = {}) => {
 	mkdirp.sync(path.dirname(outputPath))
 
-	if (overwrite && fs.existsSync(outputPath)) {
+	if (overwrite && fs.existsSync(outputPath) && process.env.XSTYLED_THEME_DEBUG) {
 		log('dim', `Path ${outputPath} already exists and will be overwritten.\n`)
 	}
 
