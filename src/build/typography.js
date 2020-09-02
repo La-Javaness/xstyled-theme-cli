@@ -10,8 +10,8 @@ const { generateEnumFromObject } = require('./typescript')
 /**
  * Loads icons from the assets directory, optimises them, builds SVG sprites and
  * React components out of the optimised icons, and generates a TS enum for icon names.
- * @param dirs
- * @returns {Promise} Nothing.
+ * @param   {object}  dirs The configuration for this run of the CLI.
+ * @returns {Promise}      Nothing.
  */
 const buildTypography = async (dirs) => {
 	const { themeSrcPath } = dirs
@@ -23,6 +23,9 @@ const buildTypography = async (dirs) => {
 		error(`Validation error on file '${typographyFilePath}': ${validation.error}`)
 	}
 	Object.assign(global.ljnTheme, omit(typographyContents, 'textStyles'))
+	global.ljnTheme.typographyMeta = {
+		textStyles: Object.keys(typographyContents.textStyles),
+	}
 	step.end()
 
 	// These props will be root elements in the final theme, and all have their own TS file.
