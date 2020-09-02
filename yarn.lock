@@ -1975,7 +1975,7 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@xstyled-theme/system@^1.0.0":
+"@xstyled-theme/system@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@xstyled-theme/system/-/system-1.2.1.tgz#757d5b9f3d02720be236ec3da93642cfe262e88a"
   integrity sha512-SfBZTxx6300ftNr4oUY29biGRaEzpgkfSs1A0ECHV1CfONZHKnBZVjvfg3y3cUcVooY/n71hGi2uoD39A7kG5Q==

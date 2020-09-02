@@ -47,7 +47,7 @@
 		"@babel/preset-react": "^7.10.4",
 		"@babel/runtime": "^7.9.2",
 		"@hapi/joi": "^17.1.1",
-		"@xstyled-theme/system": "^1.0.0",
+		"@xstyled-theme/system": "^1.2.1",
 		"@xstyled/styled-components": "^1.17.2",
 		"@xstyled/system": "^1.17.2",
 		"chalk": "^4.0.0",
