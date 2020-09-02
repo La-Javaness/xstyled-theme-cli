@@ -1,16 +1,29 @@
-# 
+# Named colors are usable throughout your theme, and always stay the same. They
+# can be used as values for foreground and background colors below.
+#
+# In your `theme.js` file, named colors will be added as-is. Background colors
+# will also be added, with the format `bg-{name}`. Foreground colors will be added
+# with the format `fg-{name}-on-{backgroundName}`, for each defined background.
+# This gives you a predictable way to access any color definition in your code.
+#
+# On top of that, foreground colors will adjust their value based on the current
+# background in the DOM, through the use of the `OnBackground` component provided
+# in the `theme` folder.
+#
+# If you want to switch your whole app to another background yourself, know that
+# theme files are also generated where foregrounds match the color of a specific
+# background. For instance, if you have a 'dark' background, `OnDark.js` can be
+# used to apply as a theme to apply that background.
 colors:
   white: '#fff'
   weirdLime: '#daec00'
   sampleColor: '#44dd33'
   otherSample: '#44dd99'
 
-#
 backgrounds:
   light: white              # You can reuse theme colors here
   dark: '#333'              # You can hardcode colors too
 
-#
 foregrounds:
   primary:                  # 'primary' can now be used anywhere in the theme as a color
     default: sampleColor    # Applied to all unspecified background colors
@@ -22,3 +35,9 @@ foregrounds:
     on-dark: white
 
   error: '#dd0060'          # A foreground color can be made constant with this shorthand
+
+# Mandatory
+defaultBackground: white
+
+# Mandatory
+defaultColor: '#123c00'

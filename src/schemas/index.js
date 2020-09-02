@@ -6,10 +6,10 @@ const themeNamePattern = /[\w-]+/
 
 /** Validation schema for a color name. Can either be a:
  * <ul>
- *   <li>CSS color name</li>
- *   <li>Theme color name</li>
- *   <li>Hexadecimal color</li>
- *   <li>RGBA color</li>
+ * <li>CSS color name</li>
+ * <li>Theme color name</li>
+ * <li>Hexadecimal color</li>
+ * <li>RGBA color</li>
  * </ul>.
  */
 const colorSchema = Joi.string() // TODO restrict further
@@ -37,16 +37,22 @@ const foregroundColorSchema = Joi.alternatives().try(
 /** Schema for a font-size CSS property, allowing for arbitrary strings to support theme props. */
 const fontSizeSchema = Joi.alternatives().try(Joi.string(), Joi.number().positive())
 
-/** Schema for a font-weight CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a font-weight CSS property, allowing for arbitrary strings to support theme props. */
 const fontWeightSchema = Joi.alternatives().try(Joi.string(), Joi.number().min(100).max(900))
 
-/** Schema for a line-height CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a line-height CSS property, allowing for arbitrary strings to support theme props. */
 const lineHeightSchema = Joi.alternatives().try(Joi.string(), Joi.number())
 
-/** Schema for a font-family CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a text-decoration CSS property, allowing for arbitrary strings to support theme props. */
+const textDecorationSchema = Joi.string()
+
+/** Schema for a text-transform CSS property, allowing for arbitrary strings to support theme props. */
+const textTransformSchema = Joi.string()
+
+/** Schema for a font-family CSS property, allowing for arbitrary strings to support theme props. */
 const fontFamilySchema = Joi.string()
 
-/** Schema for a letter-spacing CSS property, allowing for arbitrary strings to support theme props */
+/** Schema for a letter-spacing CSS property, allowing for arbitrary strings to support theme props. */
 const letterSpacingSchema = Joi.string()
 
 /** Schema for the name of a variant in a component. */
@@ -61,6 +67,8 @@ const colorFileSchema = Joi.object().keys({
 	colors: Joi.object().pattern(themeNamePattern, colorSchema),
 	backgrounds: Joi.object().pattern(themeNamePattern, colorSchema),
 	foregrounds: Joi.object().pattern(themeNamePattern, foregroundColorSchema),
+	defaultBackground: colorSchema.required(),
+	defaultColor: colorSchema.required(),
 })
 
 /**
@@ -97,6 +105,8 @@ const typographyFileSchema = Joi.object().keys({
 	fonts: Joi.object().pattern(themeNamePattern, fontFamilySchema),
 	letterSpacings: Joi.object().pattern(themeNamePattern, letterSpacingSchema),
 	lineHeights: Joi.object().pattern(themeNamePattern, lineHeightSchema),
+	textDecorations: Joi.object().pattern(themeNamePattern, textDecorationSchema),
+	textTransforms: Joi.object().pattern(themeNamePattern, textTransformSchema),
 	textStyles: Joi.object().pattern(
 		themeNamePattern,
 		Joi.object({
@@ -106,6 +116,8 @@ const typographyFileSchema = Joi.object().keys({
 			fontFamily: fontFamilySchema,
 			letterSpacing: letterSpacingSchema,
 			lineHeight: lineHeightSchema,
+			textDecoration: textDecorationSchema,
+			textTransform: textTransformSchema,
 			color: foregroundColorSchema,
 			// Plurals refer to the theme properties and NOT to text style properties
 			fontSizes: altPropertyName('fontSize'),
@@ -113,6 +125,9 @@ const typographyFileSchema = Joi.object().keys({
 			fonts: altPropertyName('font'),
 			letterSpacings: altPropertyName('letterSpacing'),
 			lineHeights: altPropertyName('lineHeight'),
+			textDecorations: altPropertyName('textDecoration'),
+			textTransforms: altPropertyName('textTransform'),
+			colors: altPropertyName('color'),
 		})
 	),
 })
@@ -145,6 +160,8 @@ module.exports = {
 	fontSizeSchema,
 	fontWeightSchema,
 	lineHeightSchema,
+	textDecorationSchema,
+	textTransformSchema,
 	fontFamilySchema,
 	letterSpacingSchema,
 	colorFileSchema,

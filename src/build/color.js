@@ -9,12 +9,18 @@ const { generateEnumFromObject } = require('./typescript')
 
 /**
  * Takes a color name or reference, and returns a valid CSS color code.
- * @param {string} colorName         The token to resolve into a valid CSS color code.
- * @param {string} [state] 	The name of the surface against which the colour will be displayed.
- * @returns {string}                   The matching CSS color code, if found in the theme.
+ * @param   {string}  colorName  The token to resolve into a valid CSS color code.
+ * @param   {string=} state      The name of the surface against which the colour
+ * will be displayed.
+ * @param   {string=} returnType Either 'resolved' (the default value) or 'origin'.
+ * Controls the type of information returned by this resolver.
+ * @returns {string}             When `returnType` is 'resolved', the matching
+ * CSS color code, if found in the theme. When `returnType` is 'origin', a string
+ * that indicates where in the theme the color is defined. This is useful if you
+ * need to uniquely distinguish a foreground color based on its background.
  * @throws If the token identified by `colorName` cannot be resolved for the current theme.
  */
-const resolveColor = (colorName, state = 'default') => {
+const resolveColor = (colorName, state = 'default', returnType = 'resolved') => {
 	if (!global.ljnTheme.colors) {
 		error('Colors not yet parsed')
 	}
@@ -27,11 +33,11 @@ const resolveColor = (colorName, state = 'default') => {
 	// hex or rgb or rgba code, or a defined CSS color name.
 	// ;/rgba?\(\d+, ?\d+, ?\d+, ?(1|0\.\d+)?\)/
 	if (colorName.startsWith('rgb') || colorName.startsWith('#') || CSS_COLOR_NAMES.includes(colorName)) {
-		return colorName
+		return returnType === 'resolved' ? colorName : 'literal'
 	}
 
 	if (global.ljnTheme.colors.colors[colorName]) {
-		return resolveColor(global.ljnTheme.colors.colors[colorName])
+		return returnType === 'resolved' ? resolveColor(global.ljnTheme.colors.colors[colorName]) : 'theme-color'
 	}
 
 	const splitName = colorName.split('.')
@@ -46,19 +52,19 @@ const resolveColor = (colorName, state = 'default') => {
 	}
 
 	if (typeof leafNode === 'string') {
-		return resolveColor(leafNode)
+		return returnType === 'resolved' ? resolveColor(leafNode) : 'foreground-static'
 	}
 
 	if (typeof leafNode === 'object') {
 		if (!leafNode[`on-${state}`]) {
 			// We might be asking for a state that isn't defined; that's ok, use default state if any.
 			if (leafNode.default) {
-				return resolveColor(leafNode.default)
+				return returnType === 'resolved' ? resolveColor(leafNode.default) : 'foreground-default'
 			}
 			error(`Incomplete color name '${colorName}'. This is the tree matching the color name: ${leafNode}`)
 		}
 
-		return resolveColor(leafNode[`on-${state}`])
+		return returnType === 'resolved' ? resolveColor(leafNode[`on-${state}`]) : `foreground-on-${state}`
 	}
 
 	error(`Unrecognised color name '${colorName}'. No match at all.`)
@@ -66,9 +72,8 @@ const resolveColor = (colorName, state = 'default') => {
 
 /**
  * Loads colors from the `colors.yml` source.
- * @param {object} dirs Input and output directories.
- * @param dirs.themeSrcPath
- * @returns {Promise} Nothing.
+ * @param {object} dirs 						 Input and output directories.
+ * @param {string} dirs.themeSrcPath The input folder for the theme YAML files.
  */
 const buildColors = async ({ themeSrcPath }) => {
 	step.start('Loading color definitions')
@@ -85,8 +90,7 @@ const buildColors = async ({ themeSrcPath }) => {
 
 /**
  * Generates a TS enum for theme colors.
- * @param dirs
- * @returns {Promise} Nothing.
+ * @param {object} dirs Input and output directories.
  */
 const exportColorTypescript = (dirs) => {
 	generateEnumFromObject(dirs, 'colors.ts', 'ThemeColors', global.ljnTheme.colors.colors)

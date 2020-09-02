@@ -11,7 +11,7 @@ A theme is a collection of design assets (fonts, images and icons), optimised fo
 
 The primary quality of `@xstyled-theme` is that it allows harnessing all the power and flexiblity of CSS-in-JS theming stacks without forcing designers to learn code. In `@xstyled-theme`, designers and developers agree on an API that is as simple as declaring a few variables, and designers can then develop and maintain themes in full autonomy.
 
-**`@xstyled-theme` is an ongoing, actively developed project used in production on projects developed by [La Javaness](lajavaness.com). We welcome all inputs and contributions, but at this stage, please consider our API to be subject to drastic changes.**
+**`@xstyled-theme` is an ongoing, actively developed project used in production on projects developed by [La Javaness](https://www.lajavaness.com). We welcome all inputs and contributions, but at this stage, please consider our API to be subject to drastic changes.**
 
 
 ## Install

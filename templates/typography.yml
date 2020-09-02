@@ -14,6 +14,14 @@ fontWeights:
 letterSpacings:
   foo: normal
 
+# Collection of CSS text-decoration properties. Optional.
+textDecorations:
+  foo: underline
+
+# Collection of CSS text-transform properties. Optional.
+textTransforms:
+  foo: uppercase
+
 # Collection of CSS line-height properties. Optional.
 lineHeights:
   foo: 1.2
@@ -30,6 +38,8 @@ textStyles:
     color: sampleColor
     letterSpacing: foo
     lineHeight: foo
+    textDecoration: foo
+    textTransform: foo
 
   sampleFromCss:
     fontSize: 14
@@ -38,3 +48,5 @@ textStyles:
     color: '#333333'
     letterSpacing: -1px
     lineHeight: 1.5
+    textDecoration: strikethrough
+    textTransform: lowercase

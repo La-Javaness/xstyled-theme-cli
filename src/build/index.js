@@ -1,5 +1,8 @@
-const { log } = require('../logger')
+const fs = require('fs')
+const { log, step } = require('../logger')
+const getJSFilePaths = require('../utils/getJSFilePaths')
 
+const { transpileJS } = require('./babel')
 const { buildComponents } = require('./components')
 const { buildColors, exportColorTypescript } = require('./color')
 const { buildConstants } = require('./constants')
@@ -12,6 +15,14 @@ const { buildTypography } = require('./typography')
 
 module.exports = async (dirs) => {
 	global.ljnTheme = {}
+
+	log('header', 'Cleaning expired build assets, if any')
+	step.start('Deleting old code assets')
+	if (fs.existsSync(dirs.themeOutputPath)) {
+		const oldJSFiles = await getJSFilePaths(dirs, true)
+		oldJSFiles.forEach((file) => fs.unlinkSync(file))
+	}
+	step.end()
 
 	log('header', 'Loading and parsing theme source')
 	// DO NOT EDIT THIS ORDER.
@@ -30,10 +41,9 @@ module.exports = async (dirs) => {
 	await createThemeJS(dirs)
 	await createOnBackground(dirs)
 
-	log('header', 'Transpiling TypeScript to JavaScript')
+	log('header', 'Transpiling Code')
 	await transpileTS(dirs)
+	// await transpileJS(dirs)
 
 	log('success', '\nDone!\n')
-
-	// TODO: Parse component definitions
 }
