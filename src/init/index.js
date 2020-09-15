@@ -113,7 +113,7 @@ module.exports = async (dirs, args) => {
 			[cliManifest.name]: `^${cliManifest.version}`,
 		},
 		peerDependencies: {
-			'@xstyled-theme/system': `^${cliManifest.version}`,
+			'@xstyled-theme/system': `^1.2.0`,
 		},
 		xstyledTheme: {
 			theme: true,
