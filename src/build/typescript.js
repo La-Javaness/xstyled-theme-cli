@@ -69,7 +69,7 @@ const transpileTS = async (dirs) => {
 		outDir: path.join(themeOutputPath, 'enums'),
 		esModuleInterop: true,
 		// moduleResolution: 'node',
-		sourceMap: true,
+		sourceMap: false,
 		jsx: 'react',
 		target: 'ES5',
 	}
