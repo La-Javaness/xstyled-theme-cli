@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.2...v2.1.3) (2020-09-15)
+
+
+### Bug Fixes
+
+* Disable sourcemap in TS as it requires extra undocumented deps ([10662b1](https://github.com/La-Javaness/xstyled-theme-cli/commit/10662b119df9e4362a82bed4789c6626a0110ae9))
+
 ## [2.1.2](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.1...v2.1.2) (2020-09-15)
 
 
