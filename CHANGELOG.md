@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.0...v2.1.1) (2020-09-15)
+
+
+### Bug Fixes
+
+* Comment out unused code to improve runtime performance ([5a67007](https://github.com/La-Javaness/xstyled-theme-cli/commit/5a67007ce902d01b8c9f93f6f7bc002ffeda23ef))
+
 # [2.1.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.0.0...v2.1.0) (2020-09-15)
 
 
