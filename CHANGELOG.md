@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.4...v2.2.0) (2020-09-15)
+
+
+### Features
+
+* Force all errors to exit with a non-zero code ([81308e4](https://github.com/La-Javaness/xstyled-theme-cli/commit/81308e42da98b8da8056af2f582299f047896ff9))
+
 ## [2.1.4](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.3...v2.1.4) (2020-09-15)
 
 
