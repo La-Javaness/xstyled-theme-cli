@@ -17,12 +17,12 @@ module.exports = {
 				message: 'chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}',
 			},
 		],
-		[
-			'@semantic-release/github',
-			{
-				assets: ['bin', 'src', 'templates', 'package.json'],
-			},
-		],
+		// [
+		// 	'@semantic-release/github',
+		// 	{
+		// 		assets: ['bin', 'src', 'templates', 'package.json'],
+		// 	},
+		// ],
 	],
 	repositoryUrl: 'git@github.com:La-Javaness/xstyled-theme-cli.git',
 }
