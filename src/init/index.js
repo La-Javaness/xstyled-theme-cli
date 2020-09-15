@@ -1,3 +1,4 @@
+const npm = require('npm')
 const inquirer = require('inquirer')
 const parseGitConfig = require('parse-git-config')
 const path = require('path')
@@ -67,15 +68,16 @@ const askPackageInfo = async (dirs, args) => {
 			default: (() => {
 				const config = parseGitConfig.sync({ cwd: rootPath })
 				return (((config || {}).remote || {}).origin || {}).url || null
-			})(), // FIXME TODO debug
+			})(),
 			message: 'Repository URL:',
 		})
 	}
 	if (!info.registry) {
+		await new Promise((resolve, reject) => npm.load((err) => (err ? reject() : resolve())))
 		promptOptions.push({
 			name: 'publishConfig.registry',
 			type: 'string',
-			default: 'https://registry.npmjs.org/', // TODO try to read npm config instead
+			default: npm.config.get('registry') || 'https://registry.npmjs.org/',
 			message: 'Registry URL:',
 		})
 	}
