@@ -1,3 +1,11 @@
+## [2.1.2](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.1...v2.1.2) (2020-09-15)
+
+
+### Bug Fixes
+
+* Downgrade system version as cli has a higher major version ([3e2dbe4](https://github.com/La-Javaness/xstyled-theme-cli/commit/3e2dbe42922fc4192f97089c1715409b8860c33a))
+* Make sure themes use system instead of internals as a peerDep ([98c56c4](https://github.com/La-Javaness/xstyled-theme-cli/commit/98c56c47d1a1c95f40e2e42bfabece149ffaa968))
+
 ## [2.1.1](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.0...v2.1.1) (2020-09-15)
 
 
