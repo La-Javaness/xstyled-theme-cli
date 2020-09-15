@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.0.0...v2.1.0) (2020-09-15)
+
+
+### Features
+
+* Use user's configured default registry for new projects ([558d698](https://github.com/La-Javaness/xstyled-theme-cli/commit/558d698694a66068e46d17b0e3f1b60bf28cf0a7))
+
 # [2.0.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.2.0...v2.0.0) (2020-09-15)
 
 
