@@ -1,3 +1,10 @@
+## [2.1.4](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.3...v2.1.4) (2020-09-15)
+
+
+### Bug Fixes
+
+* **deps:** Add missing source-map-support dependency ([324b8f4](https://github.com/La-Javaness/xstyled-theme-cli/commit/324b8f48093a9f8c6a245825a5a4b0005f6f376d))
+
 ## [2.1.3](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.2...v2.1.3) (2020-09-15)
 
 
