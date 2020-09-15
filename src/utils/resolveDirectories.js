@@ -4,17 +4,17 @@ const path = require('path')
  * Root directory for commands run from inside a theme, e.g. `build`.
  * @type {string}
  */
-const THEME_ROOT = './' // TODO DEBUG THIS // FIXME
+const THEME_ROOT = './'
 
 /**
  * Root directory for commands run from inside a project, e.g. `search` or `install`.
  * @type {string}
  */
-const PROJECT_ROOT = './' // TODO DEBUG THIS // FIXME
+const PROJECT_ROOT = './'
 
 module.exports = (args, inProject = true) => {
 	const rootDir = args.root || args.r || inProject ? PROJECT_ROOT : THEME_ROOT
-	const rootPath = path.resolve(rootDir) // TODO DEBUG THIS // FIXME
+	const rootPath = path.resolve(rootDir)
 
 	/* Input directories for the theme */
 	const THEME_ASSETS_DIRNAME = 'assets'
