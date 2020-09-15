@@ -1,3 +1,40 @@
+# [2.0.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.2.0...v2.0.0) (2020-09-15)
+
+
+### Bug Fixes
+
+* Disable node resolution mode as it caused crashes ([9676c62](https://github.com/La-Javaness/xstyled-theme-cli/commit/9676c625d8154ea5305e46cf3d508ef6c72223e9))
+* Repair issues caused by semantic-release crashes ([745d3ab](https://github.com/La-Javaness/xstyled-theme-cli/commit/745d3aba745aa28e7066f06e7fc67911d382990e))
+
+
+### Features
+
+* Add code to purge old JS files in a build dir ([8e3d039](https://github.com/La-Javaness/xstyled-theme-cli/commit/8e3d0395d595c9a29a9bc248a0f4f475dcc25b0f))
+* Add code to transpile JS (but don't use it!) ([0a29be9](https://github.com/La-Javaness/xstyled-theme-cli/commit/0a29be90d6a27afaa6f7ad159b10f0a05c34f7bb))
+* Add color support to the textStyles schema ([d01c68d](https://github.com/La-Javaness/xstyled-theme-cli/commit/d01c68d34ecd6eca177e4d7bb66dd0e4b965824b))
+* Add defaultBackground and defaultColor to spec ([989a921](https://github.com/La-Javaness/xstyled-theme-cli/commit/989a921df58a9652c78b84adc0bd0a40c3946722))
+* Add meta section with text style names to themes ([b272961](https://github.com/La-Javaness/xstyled-theme-cli/commit/b272961b43aebecdeb839e4bf69fd61aacfedc6e))
+* Disable debug info by default ([183b595](https://github.com/La-Javaness/xstyled-theme-cli/commit/183b5952e3780500ea3f5f76052bb4b09ef31088))
+* Generate more icon sprites to match foreground colors too ([4a70ddd](https://github.com/La-Javaness/xstyled-theme-cli/commit/4a70dddc3802037ad5fa8c4829ff840496838d75))
+* Generate smarter color mappings ([4f74c7e](https://github.com/La-Javaness/xstyled-theme-cli/commit/4f74c7ed08a1b9ab6702f23473d66663e8393c38))
+* Implement CSS-in-JS syntax for component specifications ([41a9dcc](https://github.com/La-Javaness/xstyled-theme-cli/commit/41a9dcc2626aac4e050f10d173da812bb0054c91))
+* Improve color handling in icon generation and ensure clean SVGO ([67616dc](https://github.com/La-Javaness/xstyled-theme-cli/commit/67616dccf25002eeff153c99bbf69bdd9eba78e7))
+* Inject a lot more colours in themes ([b2f4cd6](https://github.com/La-Javaness/xstyled-theme-cli/commit/b2f4cd6797c44cd0291e0f9f548c89e92c0a1171))
+* Properly fill circles in Icons ([0cbb6ae](https://github.com/La-Javaness/xstyled-theme-cli/commit/0cbb6ae13fff81cd85312dcd6d28330cd522f876))
+* Support string syntaxes for spaces in @xstyled/system ([54e60f4](https://github.com/La-Javaness/xstyled-theme-cli/commit/54e60f43b868aaae256ceb4bcbb32236f2a89a95))
+* Support text decoration and transform in text styles ([1bb7f7d](https://github.com/La-Javaness/xstyled-theme-cli/commit/1bb7f7d15d0b5d8923b22e30f696b0a5339b0289))
+
+
+### BREAKING CHANGES
+
+* Yaml component files are temporarily no longer supported.
+
+You will need relevant @xstyled-theme/system helpers in your JS codebase
+to connect to this new component format. The documentation is temporarily
+outdated.
+* fg-foo colors are now named foo directly, and the 
+background color is automatically added to all theme files.
+
 # [1.2.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v1.1.1...v1.2.0) (2020-07-07)
 
 
