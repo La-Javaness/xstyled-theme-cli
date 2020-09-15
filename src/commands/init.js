@@ -7,7 +7,7 @@ module.exports = async (args) => {
 		const dirs = resolveDirectories(args)
 		await init(dirs, args)
 	} catch (err) {
-		error(err, false)
+		error(err)
 		throw err
 	}
 }
