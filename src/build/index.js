@@ -2,7 +2,7 @@ const fs = require('fs')
 const { log, step } = require('../logger')
 const getJSFilePaths = require('../utils/getJSFilePaths')
 
-const { transpileJS } = require('./babel')
+// const { transpileJS } = require('./babel')
 const { buildComponents } = require('./components')
 const { buildColors, exportColorTypescript } = require('./color')
 const { buildConstants } = require('./constants')
