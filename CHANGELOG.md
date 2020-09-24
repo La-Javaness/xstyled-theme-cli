@@ -1,3 +1,10 @@
+# [2.3.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.2.0...v2.3.0) (2020-09-24)
+
+
+### Features
+
+* **build:** Support alternative fill notation in icon SVGs ([e52bd47](https://github.com/La-Javaness/xstyled-theme-cli/commit/e52bd4759849a6efa0dbd338e7a60ef59992e2c2))
+
 # [2.2.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.1.4...v2.2.0) (2020-09-15)
 
 
