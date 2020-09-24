@@ -12,15 +12,20 @@ const { resolveColor } = require('./color')
 const { generateEnumFromArray } = require('./typescript')
 
 const _replaceFills = (content, color) => {
+	const cleanedUp = content
+		.replace(new RegExp('fill:[^;"]+;', 'g'), '') // style="fill:#f00;fill-opacity:1"
+		.replace(new RegExp('fill:[^;"]+"', 'g'), '"') // style="fill-opacity:1;fill:#f00"
+		.replace(new RegExp('fill="[^"]+"', 'g'), '') // fill="#f00"
+
 	if (color) {
 		const resolvedFill = `fill="${resolveColor(color)}"`
 
-		return content
-			.replace(new RegExp('fill="[^"]+"', 'g'), '')
+		return cleanedUp
 			.replace(new RegExp('<path', 'g'), `<path ${resolvedFill}`)
 			.replace(new RegExp('<circle', 'g'), `<circle ${resolvedFill}`)
 	}
-	return content.replace(new RegExp('fill="[^"]+"', 'g'), '')
+
+	return cleanedUp
 }
 
 const _genOneSprite = (color, iconsContent, destDir) =>
