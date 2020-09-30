@@ -120,7 +120,7 @@ const buildComponents = async (dirs) => {
 
 	for (const componentFile of componentFiles) {
 		const componentJSPath = path.join(componentDirPath, componentFile)
-		const componentName = startCase(componentFile.substring(0, componentFile.length - 3))
+		const componentName = startCase(componentFile.substring(0, componentFile.length - 3)).replace(' ', '')
 
 		copyCssInJsFile(dirs, `${componentName}.style.js`, componentJSPath, componentName)
 	}
