@@ -1,6 +1,6 @@
 {
 	"name": "@xstyled-theme/cli",
-	"version": "2.3.0",
+	"version": "2.3.1",
 	"description": "A CLI that builds Xstyled themes from assets, and helpers to use them in your project",
 	"homepage": "https://github.com/La-Javaness/xstyled-theme-cli#readme",
 	"license": "MIT",

@@ -1,3 +1,10 @@
+## [2.3.1](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.3.0...v2.3.1) (2020-09-30)
+
+
+### Bug Fixes
+
+* **components:** Remove spaces from component file names ([2a2f51a](https://github.com/La-Javaness/xstyled-theme-cli/commit/2a2f51a6f439f6d3fe09a24c7a22f183db4dc6ab))
+
 # [2.3.0](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.2.0...v2.3.0) (2020-09-24)
 
 
