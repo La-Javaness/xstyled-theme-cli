@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.3.1...v2.3.2) (2021-05-04)
+
+
+### Bug Fixes
+
+* Avoid failing when images folder is not in build output ([c5a0481](https://github.com/La-Javaness/xstyled-theme-cli/commit/c5a04810541eb49d00b909c9ec3830bcfbeee99e))
+
 ## [2.3.1](https://github.com/La-Javaness/xstyled-theme-cli/compare/v2.3.0...v2.3.1) (2020-09-30)
 
 
